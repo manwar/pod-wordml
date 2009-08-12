@@ -1,0 +1,13 @@
+=pod
+
+=head1 Buster's mouse is named Irwin
+
+This is a normal paragraph. It's not special, but it has
+this quote: "Hello World!".
+
+	print "Hello World!";
+	print 'Hello World!';
+	
+This is another paragraph.
+
+=cut

@@ -1,0 +1,8 @@
+<ASCII-MAC>
+<Version:5><FeatureSet:InDesign-Roman><ColorTable:=<Black:COLOR:CMYK:Process:0,0,0,1>>
+<DefineParaStyle:NormalParagraphStyle=<Nextstyle:NormalParagraphStyle>>
+<pstyle:Head1Style>Buster<0x2019>s mouse is named Irwin
+<pstyle:NormalParagraphStyle>This is a normal paragraph. It<0x2019>s not special, but it has this quote: <0x201C>Hello World!<0x201D>.
+<pstyle:CodeParagraphStyle>print "Hello World!";
+<pstyle:CodeParagraphStyle>print 'Hello World!';
+<pstyle:NormalParagraphStyle>This is another paragraph.

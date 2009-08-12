@@ -1,0 +1,5 @@
+<ASCII-MAC>
+<Version:5><FeatureSet:InDesign-Roman><ColorTable:=<Black:COLOR:CMYK:Process:0,0,0,1>>
+<DefineParaStyle:NormalParagraphStyle=<Nextstyle:NormalParagraphStyle>>
+<pstyle:Head1Style>Lorem ipsum dolor sit amet
+<pstyle:NormalParagraphStyle>Lorem <CharStyle:ItalicCharacterStyle>ipsum<CharStyle:> dolor sit amet, <CharStyle:CodeCharacterStyle>consectetuer<CharStyle:> adipiscing elit. Nunc volutpat faucibus lorem. In pellentesque tortor ac leo. Aenean sit amet justo sed orci egestas sodales. Aenean risus sapien, pulvinar ut, ultrices dictum, varius sit amet, <CharStyle:BoldCharacterStyle>tellus<CharStyle:>.

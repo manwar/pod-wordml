@@ -1,0 +1,8 @@
+<ASCII-MAC>
+<Version:5><FeatureSet:InDesign-Roman><ColorTable:=<Black:COLOR:CMYK:Process:0,0,0,1>>
+<DefineParaStyle:NormalParagraphStyle=<Nextstyle:NormalParagraphStyle>>
+<pstyle:Head1Style>Lorem ipsum dolor sit amet
+<pstyle:NormalParagraphStyle>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nunc volutpat faucibus lorem. In pellentesque tortor ac leo. Aenean sit amet justo sed orci egestas sodales. Aenean risus sapien, pulvinar ut, ultrices dictum, varius sit amet, tellus.
+<pstyle:CodeParagraphStyle>#!/usr/bin/perl
+<pstyle:CodeParagraphStyle>print "Hello world!\\n";
+<pstyle:NormalParagraphStyle>Ut suscipit libero nec nunc. Curabitur eget elit. Quisque vehicula massa eget lorem. Praesent magna. Nunc at sem vel lectus ornare scelerisque. Vivamus in elit non risus laoreet tincidunt. Vestibulum vehicula pretium tellus. Quisque erat lacus, condimentum ut, rhoncus vitae, consectetuer eu, nisi. Maecenas non purus eu felis aliquam volutpat. In quis est at mi iaculis congue.

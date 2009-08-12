@@ -1,0 +1,26 @@
+Changes
+examples/placeholder.pl
+lib/WordML.pm
+LICENSE
+Makefile.PL
+MANIFEST			This list of files
+README
+t/entities.t
+t/input_pod_dir/entities.pod
+t/input_pod_dir/entities.txt
+t/input_pod_dir/interior_sequences.pod
+t/input_pod_dir/interior_sequences.txt
+t/input_pod_dir/lists.txt
+t/input_pod_dir/minimal.pod
+t/input_pod_dir/minimal.txt
+t/input_pod_dir/quotes.pod
+t/input_pod_dir/quotes.txt
+t/interior_sequences.t
+t/lib/transform_file.pl
+t/load.t
+t/pod.t
+t/pod_coverage.t
+t/prereq.t
+t/quotes.t
+t/start_doc.t
+t/test_manifest
