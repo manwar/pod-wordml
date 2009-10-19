@@ -1,9 +1,9 @@
 use Test::LongString;
 
-my $class = 'Pod::InDesign::TaggedText';
+my $class = 'Pod::WordML';
 use_ok( $class );
 
-my $input_dir = File::Spec->catfile( qw( t input_pod_dir ) );
+my $input_dir = 'test-corpus';
 ok( -d $input_dir, "Input directory is there" );
 
 
@@ -24,15 +24,20 @@ sub transform_file
 	$parser->output_string( \my $output );
 	$parser->parse_file( $file );
 	
-	( my $output_reference = $file ) =~ s/.pod$/.txt/;
+	( my $output_reference = $file ) =~ s/.pod$/.xml/;
 	
 	ok( -e $output_reference, "Output reference file is there" );
 	
 	my $expected_output = do { local $/; local @ARGV = $output_reference; <> };
 	
-	is_string( $output, $expected_output );
+	is_string( $output, $expected_output, "Regression for $pod_file" );
 	
-	print STDERR "\n$output\n" if $ENV{DEBUG};
+	if( $ENV{DEBUG} )
+		{
+		open my( $fh ), ">", "$output_reference.debug"
+			or die "Could not open debug file: $!\n";
+		print $fh "\n$output\n"
+		}
 	}
 	
 1;

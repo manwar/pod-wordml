@@ -1,7 +1,7 @@
 # This Makefile is for the Pod::WordML extension to perl.
 #
 # It was generated automatically by MakeMaker version
-# 6.48 (Revision: 64800) from the contents of
+# 6.50 (Revision: 65000) from the contents of
 # Makefile.PL. Don't edit this file, edit Makefile.PL instead.
 #
 #       ANY CHANGES MADE HERE WILL BE LOST!
@@ -13,9 +13,8 @@
 #     ABSTRACT => q[Convert Pod to Microsoft's WordML format]
 #     AUTHOR => q[brian d foy <bdfoy@cpan.org>]
 #     LICENSE => q[perl]
-#     MAN3PODS => { lib/TaggedText.pm=>q[$(INST_MAN3DIR)/Pod::WordML.3] }
 #     NAME => q[Pod::WordML]
-#     PM => { lib/WordML.pm=>q[$(INST_LIBDIR)/WordML.pm] }
+#     PM => { lib/WordML.pm=>q[$(INST_LIBDIR)/WordML.pm], lib/AddisonWesley.pm=>q[$(INST_LIBDIR)/WordML/AddisonWesley.pm] }
 #     PREREQ_PM => { Test::LongString=>q[0], Pod::PseudoPod=>q[0], Tie::Cycle=>q[0] }
 #     VERSION_FROM => q[lib/WordML.pm]
 #     clean => { FILES=>q[Pod-WordML-*] }
@@ -25,7 +24,7 @@
 
 # --- MakeMaker const_config section:
 
-# These definitions are from config.sh (via /usr/local/lib/perl5/5.8.8/darwin-2level/Config.pm).
+# These definitions are from config.sh (via /usr/local/perls/perl-5.10.0/lib/5.10.0/darwin-2level/Config.pm).
 # They may have been overridden via Makefile.PL or on the command line.
 AR = ar
 CC = cc
@@ -36,16 +35,16 @@ DLSRC = dl_dlopen.xs
 EXE_EXT = 
 FULL_AR = /usr/bin/ar
 LD = env MACOSX_DEPLOYMENT_TARGET=10.3 cc
-LDDLFLAGS =  -bundle -undefined dynamic_lookup -L/usr/local/lib -L/opt/local/lib
-LDFLAGS =  -L/usr/local/lib -L/opt/local/lib
+LDDLFLAGS =  -bundle -undefined dynamic_lookup -L/usr/local/lib
+LDFLAGS =  -L/usr/local/lib
 LIBC = /usr/lib/libc.dylib
 LIB_EXT = .a
 OBJ_EXT = .o
 OSNAME = darwin
-OSVERS = 8.8.2
-RANLIB = ranlib
-SITELIBEXP = /usr/local/lib/perl5/site_perl/5.8.8
-SITEARCHEXP = /usr/local/lib/perl5/site_perl/5.8.8/darwin-2level
+OSVERS = 9.6.0
+RANLIB = /usr/bin/ar s
+SITELIBEXP = /usr/local/perls/perl-5.10.0/lib/site_perl/5.10.0
+SITEARCHEXP = /usr/local/perls/perl-5.10.0/lib/site_perl/5.10.0/darwin-2level
 SO = dylib
 VENDORARCHEXP = 
 VENDORLIBEXP = 
@@ -75,55 +74,55 @@ MAN3EXT = 3
 INSTALLDIRS = site
 DESTDIR = 
 PREFIX = $(SITEPREFIX)
-PERLPREFIX = /usr/local
-SITEPREFIX = /usr/local
+PERLPREFIX = /usr/local/perls/perl-5.10.0
+SITEPREFIX = /usr/local/perls/perl-5.10.0
 VENDORPREFIX = 
-INSTALLPRIVLIB = /usr/local/lib/perl5/5.8.8
+INSTALLPRIVLIB = /usr/local/perls/perl-5.10.0/lib/5.10.0
 DESTINSTALLPRIVLIB = $(DESTDIR)$(INSTALLPRIVLIB)
-INSTALLSITELIB = /usr/local/lib/perl5/site_perl/5.8.8
+INSTALLSITELIB = /usr/local/perls/perl-5.10.0/lib/site_perl/5.10.0
 DESTINSTALLSITELIB = $(DESTDIR)$(INSTALLSITELIB)
 INSTALLVENDORLIB = 
 DESTINSTALLVENDORLIB = $(DESTDIR)$(INSTALLVENDORLIB)
-INSTALLARCHLIB = /usr/local/lib/perl5/5.8.8/darwin-2level
+INSTALLARCHLIB = /usr/local/perls/perl-5.10.0/lib/5.10.0/darwin-2level
 DESTINSTALLARCHLIB = $(DESTDIR)$(INSTALLARCHLIB)
-INSTALLSITEARCH = /usr/local/lib/perl5/site_perl/5.8.8/darwin-2level
+INSTALLSITEARCH = /usr/local/perls/perl-5.10.0/lib/site_perl/5.10.0/darwin-2level
 DESTINSTALLSITEARCH = $(DESTDIR)$(INSTALLSITEARCH)
 INSTALLVENDORARCH = 
 DESTINSTALLVENDORARCH = $(DESTDIR)$(INSTALLVENDORARCH)
-INSTALLBIN = /usr/local/bin
+INSTALLBIN = /usr/local/perls/perl-5.10.0/bin
 DESTINSTALLBIN = $(DESTDIR)$(INSTALLBIN)
-INSTALLSITEBIN = /usr/local/bin
+INSTALLSITEBIN = /usr/local/perls/perl-5.10.0/bin
 DESTINSTALLSITEBIN = $(DESTDIR)$(INSTALLSITEBIN)
 INSTALLVENDORBIN = 
 DESTINSTALLVENDORBIN = $(DESTDIR)$(INSTALLVENDORBIN)
-INSTALLSCRIPT = /usr/local/bin
+INSTALLSCRIPT = /usr/local/perls/perl-5.10.0/bin
 DESTINSTALLSCRIPT = $(DESTDIR)$(INSTALLSCRIPT)
-INSTALLSITESCRIPT = /usr/local/bin
+INSTALLSITESCRIPT = /usr/local/perls/perl-5.10.0/bin
 DESTINSTALLSITESCRIPT = $(DESTDIR)$(INSTALLSITESCRIPT)
 INSTALLVENDORSCRIPT = 
 DESTINSTALLVENDORSCRIPT = $(DESTDIR)$(INSTALLVENDORSCRIPT)
-INSTALLMAN1DIR = /usr/local/share/man/man1
+INSTALLMAN1DIR = /usr/local/perls/perl-5.10.0/man/man1
 DESTINSTALLMAN1DIR = $(DESTDIR)$(INSTALLMAN1DIR)
-INSTALLSITEMAN1DIR = /usr/local/share/man/man1
+INSTALLSITEMAN1DIR = /usr/local/perls/perl-5.10.0/man/man1
 DESTINSTALLSITEMAN1DIR = $(DESTDIR)$(INSTALLSITEMAN1DIR)
 INSTALLVENDORMAN1DIR = 
 DESTINSTALLVENDORMAN1DIR = $(DESTDIR)$(INSTALLVENDORMAN1DIR)
-INSTALLMAN3DIR = /usr/local/share/man/man3
+INSTALLMAN3DIR = /usr/local/perls/perl-5.10.0/man/man3
 DESTINSTALLMAN3DIR = $(DESTDIR)$(INSTALLMAN3DIR)
-INSTALLSITEMAN3DIR = /usr/local/share/man/man3
+INSTALLSITEMAN3DIR = /usr/local/perls/perl-5.10.0/man/man3
 DESTINSTALLSITEMAN3DIR = $(DESTDIR)$(INSTALLSITEMAN3DIR)
 INSTALLVENDORMAN3DIR = 
 DESTINSTALLVENDORMAN3DIR = $(DESTDIR)$(INSTALLVENDORMAN3DIR)
-PERL_LIB = /usr/local/lib/perl5/5.8.8
-PERL_ARCHLIB = /usr/local/lib/perl5/5.8.8/darwin-2level
+PERL_LIB = /usr/local/perls/perl-5.10.0/lib/5.10.0
+PERL_ARCHLIB = /usr/local/perls/perl-5.10.0/lib/5.10.0/darwin-2level
 LIBPERL_A = libperl.a
 FIRST_MAKEFILE = Makefile
 MAKEFILE_OLD = Makefile.old
 MAKE_APERL_FILE = Makefile.aperl
 PERLMAINCC = $(CC)
-PERL_INC = /usr/local/lib/perl5/5.8.8/darwin-2level/CORE
-PERL = /usr/local/bin/perl
-FULLPERL = /usr/local/bin/perl
+PERL_INC = /usr/local/perls/perl-5.10.0/lib/5.10.0/darwin-2level/CORE
+PERL = /usr/local/perls/perl-5.10.0/bin/perl
+FULLPERL = /usr/local/perls/perl-5.10.0/bin/perl
 ABSPERL = $(PERL)
 PERLRUN = $(PERL)
 FULLPERLRUN = $(FULLPERL)
@@ -135,9 +134,9 @@ PERL_CORE = 0
 PERM_RW = 644
 PERM_RWX = 755
 
-MAKEMAKER   = /usr/local/lib/perl5/5.8.8/ExtUtils/MakeMaker.pm
-MM_VERSION  = 6.48
-MM_REVISION = 64800
+MAKEMAKER   = /usr/local/perls/perl-5.10.0/lib/5.10.0/ExtUtils/MakeMaker.pm
+MM_VERSION  = 6.50
+MM_REVISION = 65000
 
 # FULLEXT = Pathname for extension directory (eg Foo/Bar/Oracle).
 # BASEEXT = Basename part of FULLEXT. May be just equal FULLEXT. (eg Oracle)
@@ -160,7 +159,8 @@ C_FILES  =
 O_FILES  = 
 H_FILES  = 
 MAN1PODS = 
-MAN3PODS = lib/TaggedText.pm
+MAN3PODS = lib/AddisonWesley.pm \
+	lib/WordML.pm
 
 # Where is the Config information that we are using/depend on
 CONFIGDEP = $(PERL_ARCHLIB)$(DFSEP)Config.pm $(PERL_INC)$(DFSEP)config.h
@@ -182,14 +182,17 @@ PERL_ARCHIVE       =
 PERL_ARCHIVE_AFTER = 
 
 
-TO_INST_PM = lib/WordML.pm
+TO_INST_PM = lib/AddisonWesley.pm \
+	lib/WordML.pm
 
 PM_TO_BLIB = lib/WordML.pm \
-	$(INST_LIBDIR)/WordML.pm
+	$(INST_LIBDIR)/WordML.pm \
+	lib/AddisonWesley.pm \
+	$(INST_LIBDIR)/WordML/AddisonWesley.pm
 
 
 # --- MakeMaker platform_constants section:
-MM_Unix_VERSION = 6.48
+MM_Unix_VERSION = 6.50
 PERL_MALLOC_DEF = -DPERL_EXTMALLOC_DEF -Dmalloc=Perl_malloc -Dfree=Perl_mfree -Drealloc=Perl_realloc -Dcalloc=Perl_calloc
 
 
@@ -405,9 +408,11 @@ POD2MAN = $(POD2MAN_EXE)
 
 
 manifypods : pure_all  \
-	lib/TaggedText.pm
+	lib/WordML.pm \
+	lib/AddisonWesley.pm
 	$(NOECHO) $(POD2MAN) --section=3 --perm_rw=$(PERM_RW) \
-	  lib/TaggedText.pm $(INST_MAN3DIR)/Pod::WordML.3 
+	  lib/WordML.pm $(INST_MAN3DIR)/WordML.$(MAN3EXT) \
+	  lib/AddisonWesley.pm $(INST_MAN3DIR)/AddisonWesley.$(MAN3EXT) 
 
 
 
@@ -481,6 +486,8 @@ metafile : create_distdir
 	$(NOECHO) $(ECHO) 'distribution_type:  module' >> META_new.yml
 	$(NOECHO) $(ECHO) 'configure_requires:' >> META_new.yml
 	$(NOECHO) $(ECHO) '    ExtUtils::MakeMaker:  0' >> META_new.yml
+	$(NOECHO) $(ECHO) 'build_requires:' >> META_new.yml
+	$(NOECHO) $(ECHO) '    ExtUtils::MakeMaker:  0' >> META_new.yml
 	$(NOECHO) $(ECHO) 'requires:' >> META_new.yml
 	$(NOECHO) $(ECHO) '    Pod::PseudoPod:    0' >> META_new.yml
 	$(NOECHO) $(ECHO) '    Test::LongString:  0' >> META_new.yml
@@ -489,7 +496,7 @@ metafile : create_distdir
 	$(NOECHO) $(ECHO) '    directory:' >> META_new.yml
 	$(NOECHO) $(ECHO) '        - t' >> META_new.yml
 	$(NOECHO) $(ECHO) '        - inc' >> META_new.yml
-	$(NOECHO) $(ECHO) 'generated_by:       ExtUtils::MakeMaker version 6.48' >> META_new.yml
+	$(NOECHO) $(ECHO) 'generated_by:       ExtUtils::MakeMaker version 6.50' >> META_new.yml
 	$(NOECHO) $(ECHO) 'meta-spec:' >> META_new.yml
 	$(NOECHO) $(ECHO) '    url:      http://module-build.sourceforge.net/META-spec-v1.4.html' >> META_new.yml
 	$(NOECHO) $(ECHO) '    version:  1.4' >> META_new.yml
@@ -739,7 +746,7 @@ $(FIRST_MAKEFILE) : Makefile.PL $(CONFIGDEP)
 
 # --- MakeMaker makeaperl section ---
 MAP_TARGET    = perl
-FULLPERL      = /usr/local/bin/perl
+FULLPERL      = /usr/local/perls/perl-5.10.0/bin/perl
 
 $(MAP_TARGET) :: static $(MAKE_APERL_FILE)
 	$(MAKE) $(USEMAKEFILE) $(MAKE_APERL_FILE) $@
@@ -792,7 +799,7 @@ ppd :
 	$(NOECHO) $(ECHO) '        <DEPENDENCY NAME="Test-LongString" VERSION="0,0,0,0" />' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '        <DEPENDENCY NAME="Tie-Cycle" VERSION="0,0,0,0" />' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '        <OS NAME="$(OSNAME)" />' >> $(DISTNAME).ppd
-	$(NOECHO) $(ECHO) '        <ARCHITECTURE NAME="darwin-2level-5.8" />' >> $(DISTNAME).ppd
+	$(NOECHO) $(ECHO) '        <ARCHITECTURE NAME="darwin-2level-5.1" />' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '        <CODEBASE HREF="" />' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '    </IMPLEMENTATION>' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '</SOFTPKG>' >> $(DISTNAME).ppd
@@ -802,7 +809,8 @@ ppd :
 
 pm_to_blib : $(TO_INST_PM)
 	$(NOECHO) $(ABSPERLRUN) -MExtUtils::Install -e 'pm_to_blib({@ARGV}, '\''$(INST_LIB)/auto'\'', '\''$(PM_FILTER)'\'')' -- \
-	  lib/WordML.pm $(INST_LIBDIR)/WordML.pm 
+	  lib/WordML.pm $(INST_LIBDIR)/WordML.pm \
+	  lib/AddisonWesley.pm $(INST_LIBDIR)/WordML/AddisonWesley.pm 
 	$(NOECHO) $(TOUCH) pm_to_blib
 
 

@@ -1,4 +1,3 @@
-# $Id$
 package Pod::WordML;
 use strict;
 use base 'Pod::PseudoPod';
@@ -13,24 +12,25 @@ $VERSION = '0.11';
 
 =head1 NAME
 
-Pod::InDesign::WordML - Turn Pod into Microsoft Word's WordML
+Pod::WordML - Turn Pod into Microsoft Word's WordML
 
 =head1 SYNOPSIS
 
-	use Pod::InDesign::WordML;
+	use Pod::WordML;
 
 =head1 DESCRIPTION
 
 ***THIS IS ALPHA SOFTWARE. MAJOR PARTS WILL CHANGE***
 
+I wrote just enough of this module to get my job done, and I skipped every
+part of the specification I didn't need while still making it flexible enough
+to handle stuff later. 
+
 =head2 The style information
 
-This module takes care of most of the tagged text stuff for you, but you'll
-want to insert your own style names. The module gets these by calling 
-methods to get the style names. You probably want to create an InDesign
-document and export it to tagged text to see what you need.
-
-Override these in a subclass.
+I don't handle all of the complexities of styles, defining styles, and
+all that other stuff. There are methods to return style names, and you
+can override those in a subclass.
 
 =cut
 
@@ -45,13 +45,37 @@ to override this. You can take this directly from
 
 sub document_header  
 	{
-	<<'HTML';
-<ASCII-MAC>
-<Version:5><FeatureSet:InDesign-Roman><ColorTable:=<Black:COLOR:CMYK:Process:0,0,0,1>>
-<DefineParaStyle:NormalParagraphStyle=<Nextstyle:NormalParagraphStyle>>
-HTML
+	my $string = <<'XML';
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?mso-application progid="Word.Document"?>
+<w:wordDocument xmlns:aml="http://schemas.microsoft.com/aml/2001/core" xmlns:dt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882" xmlns:mo="http://schemas.microsoft.com/office/mac/office/2008/main" xmlns:ve="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mv="urn:schemas-microsoft-com:mac:vml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w10="urn:schemas-microsoft-com:office:word" xmlns:w="http://schemas.microsoft.com/office/word/2003/wordml" xmlns:wx="http://schemas.microsoft.com/office/word/2003/auxHint" xmlns:wsp="http://schemas.microsoft.com/office/word/2003/wordml/sp2" xmlns:sl="http://schemas.microsoft.com/schemaLibrary/2003/core" w:macrosPresent="no" w:embeddedObjPresent="no" w:ocxPresent="no" xml:space="preserve">
+<w:ignoreSubtree w:val="http://schemas.microsoft.com/office/word/2003/wordml/sp2" />
+XML
+
+	$string .= $_[0]->fonts . $_[0]->lists . $_[0]->styles;
+
+	$string .= <<'XML';
+<w:body>
+XML
 	}
 
+	
+sub fonts  { '' }
+sub lists  { '' }
+sub styles { '' }
+
+=item document_footer
+
+=cut
+
+sub document_footer
+	{
+	<<'XML';
+</w:body>
+</w:wordDocument>
+XML
+	}
+	
 =item head1_style, head2_style, head3_style, head4_style
 
 The paragraph styles to use with each heading level. By default these are
@@ -59,10 +83,11 @@ C<Head1Style>, and so on.
 
 =cut
 
-sub head1_style         { 'Head1Style' }
-sub head2_style         { 'Head2Style' }
-sub head3_style         { 'Head3Style' }
-sub head4_style         { 'Head4Style' }
+sub head0_style         { 'Heading0' }
+sub head1_style         { 'Heading1' }
+sub head2_style         { 'Heading2' }
+sub head3_style         { 'Heading3' }
+sub head4_style         { 'Heading4' }
 
 =item normal_paragraph_style
 
@@ -83,6 +108,7 @@ handling, you'll need to override C<start_Verbatim> and C<end_Verbatim>.
 =cut
 
 sub code_para_style     { 'CodeParagraphStyle'   }
+sub single_code_line_style { 'CodeParagraphStyle'   }
 
 =item inline_code_style
 
@@ -123,8 +149,8 @@ sub inline_bold_style   { 'BoldCharacterStyle' }
 Everything else is the same stuff from C<Pod::Simple>.
 
 =cut
-
-sub new { $_[0]->SUPER::new() }
+use Data::Dumper;
+sub new { my $self = $_[0]->SUPER::new() }
 
 sub emit 
 	{
@@ -148,35 +174,130 @@ sub start_Document
 	$_[0]->{'scratch'} .= $_[0]->document_header; $_[0]->emit;
 	}
 
-sub end_Document    { 1 }	
+sub end_Document    
+	{
+	$_[0]->{'scratch'} .= $_[0]->document_footer; $_[0]->emit;
+	}	
 
-sub start_head1     { $_[0]{'scratch'}  = '<pstyle:' . $_[0]->head1_style . '>'; }
-sub end_head1       { $_[0]{'scratch'} .= "\n"; $_[0]->end_non_code_text }
+=begin comment
 
-sub start_head2     { $_[0]{'scratch'}  = '<pstyle:' . $_[0]->head2_style . '>'; }
-sub end_head2       { $_[0]{'scratch'} .= "\n"; $_[0]->end_non_code_text }
+    <w:p wsp:rsidR="001A510A" wsp:rsidRDefault="001A510A" wsp:rsidP="001A510A">
+      <w:pPr>
+        <w:pStyle w:val="Heading1" />
+      </w:pPr>
+      <w:r>
+        <w:t>This is an h1</w:t>
+      </w:r>
+    </w:p>
 
-sub start_head3     { $_[0]{'scratch'}  = '<pstyle:' . $_[0]->head3_style . '>'; }
-sub end_head3       { $_[0]{'scratch'} .= "\n"; $_[0]->end_non_code_text }
+=cut
 
-sub start_head4     { $_[0]{'scratch'}  = '<pstyle:' . $_[0]->head4_style . '>'; }
-sub end_head4       { $_[0]{'scratch'} .= "\n"; $_[0]->end_non_code_text }
+sub _header_start
+	{
+	my( $self, $style, $level ) = @_;
+	
+	my $format = '  <w:p>
+    <w:pPr>
+      <w:pStyle w:val="%s" />
+    </w:pPr>
+    <w:r>
+      <w:t>';
+
+	$self->{scratch} = sprintf $format, $style;
+	$self->emit;
+	}
+	
+sub _header_end
+	{
+	'</w:t>
+    </w:r>
+  </w:p>
+';	
+	}
+
+sub start_head0     { $_[0]->_header_start( $_[0]->head0_style, 0 ); }
+sub end_head0       { $_[0]{'scratch'}  .= $_[0]->_header_end; $_[0]->end_non_code_text }
+	
+sub start_head1     { $_[0]->_header_start( $_[0]->head1_style, 1 ); }
+sub end_head1       { $_[0]{'scratch'}  .= $_[0]->_header_end; $_[0]->end_non_code_text }
+
+sub start_head2     { $_[0]->_header_start( $_[0]->head2_style, 2 );  }
+sub end_head2       { $_[0]{'scratch'} .= $_[0]->_header_end; $_[0]->end_non_code_text }
+
+sub start_head3     { $_[0]->_header_start( $_[0]->head3_style, 3 );  }
+sub end_head3       { $_[0]{'scratch'} .= $_[0]->_header_end; $_[0]->end_non_code_text }
+
+sub start_head4     { $_[0]->_header_start( $_[0]->head4_style, 4 );  }
+sub end_head4       { $_[0]{'scratch'} .= $_[0]->_header_end; $_[0]->end_non_code_text }
 
 sub end_non_code_text
 	{
 	my $self = shift;
 	
-	$self->make_curly_quotes;
+	#$self->make_curly_quotes;
 	
 	#$self->{'scratch'} .= "\n"; 
-	$self->emit
+	$self->emit;
+	}
+
+=begin comment
+
+<w:body>
+  <w:p wsp:rsidR="1" wsp:rsidRDefault="4">
+    <w:r>
+      <w:t>This is a line in a paragraph</w:t>
+    </w:r>
+  </w:p>
+  <w:p wsp:rsidR="2" wsp:rsidRDefault="5" />
+  <w:p wsp:rsidR="3" wsp:rsidRDefault="5">
+    <w:r>
+      <w:t>This is another line in another paragraph</w:t>
+    </w:r>
+  </w:p>
+  <w:sectPr wsp:rsidR="00285A57" wsp:rsidSect="00285A57">
+    <w:pgSz w:w="12240" w:h="15840" />
+    <w:pgMar w:top="1440" w:right="1800" w:bottom="1440" w:left="1800" w:gutter="0" />
+  </w:sectPr>
+</w:body>
+
+=end comment
+
+=cut
+
+sub make_para
+	{
+	my( $self, $style, $para ) = @_;
+	
+	$self->{'scratch'}  =
+qq|  <w:p>
+    <w:pPr>
+      <w:pStyle w:val="$style" />
+    </w:pPr>
+    <w:r>
+      <w:t>$para</w:t>
+    </w:r>
+  </w:p>
+|;
+	
+	$self->emit;
 	}
 	
 sub start_Para      
 	{ 
 	my $self = shift;
 	
-	$self->{'scratch'}  = '<pstyle:' . $self->normal_para_style . '>'; 
+	# it would be nice to take this through make_para
+	my $style = $self->normal_para_style;
+	
+	$self->{'scratch'}  =
+qq|  <w:p>
+    <w:pPr>
+      <w:pStyle w:val="$style" />
+    </w:pPr>
+    <w:r>
+      <w:t>|;
+	
+	$self->emit;
 	
 	$self->{'in_para'} = 1; 
 	}
@@ -186,8 +307,13 @@ sub end_Para
 	{ 
 	my $self = shift;
 	
-	$self->{'scratch'} .= "\n";
+	$self->{'scratch'} .= '</w:t>
+    </w:r>
+  </w:p>
+';
 
+	$self->emit;
+	
 	$self->end_non_code_text;
 
 	$self->{'in_para'} = 0;
@@ -197,42 +323,193 @@ sub start_figure 	{ }
 
 sub end_figure      { }
 
-sub start_Verbatim { $_[0]{'in_verbatim'} = 1; }
+sub first_code_line_style  { 'first code line'   }
+sub middle_code_line_style { 'middle code line'  }
+sub last_code_line_style   { 'last code line'    }
 
-sub end_Verbatim 
-	{	
-	my @lines = split m/^/m, $_[0]{'scratch'};
+sub first_code_line  { $_[0]->make_para( $_[0]->first_code_line_style,  $_[1] ) }
+sub middle_code_line { $_[0]->make_para( $_[0]->middle_code_line_style, $_[1] ) }
+sub last_code_line   { $_[0]->make_para( $_[0]->last_code_line_style,   $_[1] ) }
 	
-	my $first = shift @lines;
-	my $last  = shift @lines;	
-	
-	$_[0]{'scratch'} =~ s/\n+\z/\n/;
-			
-	my $style = $_[0]->code_para_style;
-	
-	$_[0]{'scratch'} =~ s/^/<pstyle:$style>/gm;
-
-	$_[0]{'scratch'} .= "\n";
-
-	$_[0]->emit();
-
-	$_[0]{'in_verbatim'} = 0;
+sub start_Verbatim 
+	{ 
+	$_[0]{'in_verbatim'} = 1; 
 	}
 
-sub start_B  { $_[0]{'scratch'} .= "<CharStyle:" . $_[0]->inline_bold_style . ">" }
-sub end_B    { $_[0]{'scratch'} .= "<CharStyle:>" }
+sub end_Verbatim 
+	{
+	my $self = shift;
+	
+	# get rid of all but one trailing newline
+	$self->{'scratch'} =~ s/\s+\z//;
+	
+	chomp( my @lines = split m/^/m, $self->{'scratch'} );
+	$self->{'scratch'} = '';
+	
+	@lines = map { s/</&lt;/g; $_ } @lines;
+	
+	if( @lines == 1 )
+		{
+		$self->make_para( $self->single_code_line_style, @lines );
+		}
+	elsif( @lines )
+		{
+		my $first = shift @lines;
+		my $last  = pop   @lines;	
+			
+		$self->first_code_line( $first );
+	
+		foreach my $line ( @lines )
+			{
+			$self->middle_code_line( $line );
+			}
+		
+		$self->last_code_line( $last );
+		}
+		
+	$self->{'in_verbatim'} = 0;
+	}
 
-sub start_C  { $_[0]{'scratch'} .= "<CharStyle:" . $_[0]->inline_code_style . ">" }
-sub end_C    { $_[0]{'scratch'} .= "<CharStyle:>" }
+sub _get_initial_item_type 
+	{
+	my $self = shift;
+  
+	my $type = $self->SUPER::_get_initial_item_type;
+  
+	#print STDERR "My item type is [$type]\n";
+  
+	$type;
+	}
 
-sub start_E { $_[0]{'in_E'} = 1 }
-sub end_E   { $_[0]{'in_E'} = 0 }
+sub start_item_bullet 
+	{
+	my $self = shift;
+	
+	#warn "Starting Item bullet\n";
+	
+	#$self->emit;
+	}
 
-sub start_F  { }
-sub end_F    { }                                                                                                         
+sub start_item_number { }
+sub start_item_text   { }
 
-sub start_I  { $_[0]{'scratch'} .= "<CharStyle:" . $_[0]->inline_italic_style . ">" }
-sub end_I    { $_[0]{'scratch'} .= "<CharStyle:>" }
+sub start_over_bullet 
+	{ 
+	my $self = shift;
+	
+	$self->{in_bullet_list} = 1;
+	$self->{bullet_count} = 0;
+	}
+	
+sub start_over_text   { }
+sub start_over_block  { }
+sub start_over_number { }
+
+sub end_over_bullet 
+	{
+	my $self = shift;
+	
+	$self->end_non_code_text;
+	
+	$self->{in_bullet_list} = 0;	
+	$self->{bullet_count}   = 0;
+	$self->{last_thingy}    = 'bullet_list';
+	}
+	
+sub end_over_text   { }
+sub end_over_block  { }
+sub end_over_number { }
+
+sub end_item_bullet 
+	{ 
+	my $self = shift;
+	
+	$self->{scratch} = '';
+	$self->emit; 
+	}
+	
+sub end_item_number { $_[0]->emit() }
+sub end_item_text   { $_[0]->emit() }
+
+=begin comment
+
+</w:t>
+      </w:r>
+      <w:r wsp:rsidRPr="00F91496">
+        <w:rPr>
+          <w:rStyle w:val="E1" />
+        </w:rPr>
+        <w:t>bold</w:t>
+      </w:r>
+      <w:r>
+        <w:t>
+
+
+</w:t>
+      </w:r>
+      <w:r wsp:rsidRPr="00EE5839">
+        <w:rPr>
+          <w:rFonts w:ascii="Times New Roman" w:h-ansi="Times New Roman" />
+          <wx:font wx:val="Times New Roman" />
+          <w:i />
+        </w:rPr>
+        <w:t>        
+=end comment
+
+=cut
+
+sub start_char_style
+	{
+	my( $self, $style ) = @_;
+	
+	$self->{'scratch'} .= qq|</w:t>
+    </w:r>
+    <w:r>
+      <w:rPr>
+        <w:rStyle w:val="$style" />
+      </w:rPr>
+      <w:t>|;
+
+	$self->emit;
+	}
+
+sub end_char_style
+	{	
+	$_[0]->{'scratch'} .= '</w:t>
+    </w:r>
+    <w:r>
+      <w:t>';
+
+	$_[0]->emit;
+	}
+
+
+sub bold_char_style { 'Bold' }
+sub end_B    { $_[0]->end_char_style }
+sub start_B  
+	{	
+	$_[0]->start_char_style( $_[0]->bold_char_style );
+	}
+
+sub inline_code_char_style { 'Italic' }
+sub end_C   
+	{ 
+	$_[0]->end_char_style; 
+	$_[0]->{in_C} = 0;
+	}
+sub start_C  
+	{
+	$_[0]->{in_C} = 1;
+	$_[0]->start_char_style( $_[0]->inline_code_char_style );
+	}
+	
+sub italic_char_style { 'Italic' }
+sub end_I    { $_[0]->end_char_style }
+sub start_I  
+	{	
+	$_[0]->start_char_style( $_[0]->italic_char_style );
+	}
+
 
 sub start_M
 	{	
@@ -256,48 +533,49 @@ sub end_U   { $_[0]->end_I   }
 sub handle_text
 	{
 	my( $self, $text ) = @_;
-	
+	if( $self->{in_bullet_list} ) {
+		#warn "text is $text\n";
+		return;
+		}
+
 	my $pad = $self->get_pad;
 		
 	$self->escape_text( \$text );
-	
 	$self->{$pad} .= $text;		
+	$self->make_curly_quotes unless( $self->dont_escape );
 	}
 
+sub dont_escape {
+	my $self = shift;
+	$self->{in_verbatim} || $self->{in_C}
+	}
+	
 sub escape_text
 	{
 	my( $self, $text_ref ) = @_;
-		
-	# escape escape chars. This is escpaing them for InDesign
-	# so don't worry about double escaping for other levels. Don't
-	# worry about InDesign in the pod.
-	$$text_ref =~ s/\\/\\\\/gx;
-
-	# escape < and >, unless it looks like <0xABCD>, in
-	# which case it's a wide character annotated as its
-	# hex value.
-	$$text_ref =~ s/     < (?! 0x[0-9a-f]{4}   > ) /\\</gx;
-	$$text_ref =~ s/(?<! <     0x[0-9a-f]{4} ) >   /\\>/gx;
 	
+	$$text_ref =~ s/&/&amp;/g;
+	$$text_ref =~ s/</&lt;/g;
+
 	return 1;
 	}
 
 sub make_curly_quotes
 	{
 	my( $self ) = @_;
-	
+		
 	my $text = $self->{scratch};
 	
 	require Tie::Cycle;
 	
-	tie my $cycle, 'Tie::Cycle', [ qw( <0x201C> <0x201D> ) ];
+	tie my $cycle, 'Tie::Cycle', [ qw( &#x201C; &#x201D; ) ];
 
 	1 while $text =~ s/"/$cycle/;
 		
 	# escape escape chars. This is escpaing them for InDesign
 	# so don't worry about double escaping for other levels. Don't
 	# worry about InDesign in the pod.
-	$text =~ s/'/<0x2019>/g;
+	$text =~ s/'/&#x2019;/g;
 	
 	$self->{'scratch'} = $text;
 	
@@ -361,6 +639,7 @@ sub e2char_tagged_text
 	package Pod::Escapes;
 	
 	my $in = shift;
+
 	return unless defined $in and length $in;
 	
 	   if( $in =~ m/^(0[0-7]*)$/ )         { $in = oct $in; } 
@@ -382,13 +661,13 @@ sub e2char_tagged_text
  
  	if( defined $Name2character_number{$in} and $Name2character_number{$in} < 127 )
  		{
- 		return chr( $Name2character_number{$in} );
+ 		return "&$in;";
  		}
 	elsif( defined $Name2character_number{$in} ) 
 		{
-		# this need to be fixed width because I want to look for
+		# this needs to be fixed width because I want to look for
 		# it in a negative lookbehind
-		return sprintf '<0x%04x>', $Name2character_number{$in};
+		return sprintf '&#x%04x;', $Name2character_number{$in};
 		}
 	else
 		{
@@ -400,11 +679,6 @@ sub e2char_tagged_text
 
 =head1 TO DO
 
-=over 4
-
-=item * beef up entity handling in EE<lt>>. I had to override some stuff from Pod::Escapes
-
-=back
 
 =head1 SEE ALSO
 
@@ -414,7 +688,7 @@ L<Pod::PseudoPod>, L<Pod::Simple>
 
 This source is in Github:
 
-	http://sourceforge.net/projects/brian-d-foy/
+	http://github.com/briandfoy/Pod-WordML
 
 If, for some reason, I disappear from the world, one of the other
 members of the project can shepherd this module appropriately.

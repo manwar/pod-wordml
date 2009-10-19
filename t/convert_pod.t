@@ -4,18 +4,14 @@ use warnings;
 
 use Test::More 'no_plan';
 
-my @files = glob( catfile( qw(test-corpus *.pod) ) );
+use File::Spec::Functions;
+require 't/lib/transform_file.pl';
+
+chdir 'test-corpus';
+my @files = glob( '*.pod' );
+chdir '..';
 
 foreach my $file ( @files )
 	{
-	my $parser = Pod::WordML->new;
-	
-	my $string;
-	open my($fh), '>', \ $string;
-	
-	$parser->output_fh( $fh );
-	
-	$parser->parse_file( $file );
-	
-	diag( $string );
+	transform_file( $file );
 	}

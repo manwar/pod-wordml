@@ -1,5 +1,8 @@
 BEGIN {
-	@classes = qw(Pod::InDesign::TaggedText);
+	@classes = qw(
+		Pod::WordML
+		Pod::WordML::AddisonWesley
+		);
 	}
 
 use Test::More tests => scalar @classes;

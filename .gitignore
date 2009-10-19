@@ -5,3 +5,5 @@ Makefile.bak
 .tar.gz
 Makefile
 Changes.bak
+.DS_Store
+test-corpus/*.debug

@@ -18,11 +18,8 @@ WriteMakefile(
 		},
 
 	'PM'           => {
-		'lib/WordML.pm'     => '$(INST_LIBDIR)/WordML.pm',
-		},
-
-	'MAN3PODS'     => {
-		'lib/TaggedText.pm' => '$(INST_MAN3DIR)/Pod::WordML.3',
+		'lib/WordML.pm'        => '$(INST_LIBDIR)/WordML.pm',
+		'lib/AddisonWesley.pm' => '$(INST_LIBDIR)/WordML/AddisonWesley.pm',
 		},
 
 	clean  => { FILES    => q|Pod-WordML-*| },

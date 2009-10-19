@@ -1,6 +1,3 @@
 load.t
 pod.t
-start_doc.t
-interior_sequences.t
-entities.t
-quotes.t
+convert_pod.t
