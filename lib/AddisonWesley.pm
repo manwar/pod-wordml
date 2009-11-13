@@ -2515,6 +2515,8 @@ sub document_footer
 XML
 	}
 	
+=item chapter_number_style
+
 =item head1_style, head2_style, head3_style, head4_style
 
 The paragraph styles to use with each heading level. By default these are
@@ -2522,11 +2524,30 @@ C<Head1Style>, and so on.
 
 =cut
 
-sub head0_style         { 'HA' }
-sub head1_style         { 'HB' }
-sub head2_style         { 'HC' }
-sub head3_style         { 'HD' }
-sub head4_style         { 'HE' }
+sub start_Document {
+	$_[0]->{chapter_number} = 0;
+	$_[0]->{item_number}    = 1;
+	$_[0]->SUPER::start_Document;
+	}
+	
+sub start_head0 {
+	$_[0]->make_para( $_[0]->chapter_number_style, $_[0]->{chapter_number}++ );
+	$_[0]->_header_start( $_[0]->head0_style, 0 ); 
+	}
+
+sub start_head1 {
+	$_[0]->_header_start( $_[0]->head1_style, 1 );
+	return unless $_[0]->{chapter_number} > 1;
+	my $pad = $_[0]->get_pad;
+	$_[0]->{$pad} .= 'Item ' . $_[0]->{item_number}++ . '. ';
+	}
+
+sub chapter_number_style { 'HA' }
+sub head0_style          { 'HB' }
+sub head1_style          { 'HC' }
+sub head2_style          { 'HD' }
+sub head3_style          { 'HE' }
+sub head4_style          { 'HF' }
 
 =item normal_paragraph_style
 
