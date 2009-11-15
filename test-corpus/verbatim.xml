@@ -4,7 +4,7 @@
 <w:ignoreSubtree w:val="http://schemas.microsoft.com/office/word/2003/wordml/sp2" />
 <w:body>
   <w:p>
-    <w:r>
+    <w:pPr>
       <w:t>This is a normal paragraph.</w:t>
     </w:r>
   </w:p>
