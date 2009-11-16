@@ -109,10 +109,10 @@ sections.
 
 =cut
 
-sub first_item_para_style     { 'FirstItemParagraphStyle' }
+sub first_item_para_style     { 'FirstItemParagraphStyle'  }
 sub middle_item_para_style    { 'MiddleItemParagraphStyle' }
-sub last_item_para_style      { 'LastItemParagraphStyle' }
-sub item_subpara_style        { 'ItemSubParagraphStyle' }
+sub last_item_para_style      { 'LastItemParagraphStyle'   }
+sub item_subpara_style        { 'ItemSubParagraphStyle'    }
 
 =item code_paragraph_style
 

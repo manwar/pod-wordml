@@ -2566,9 +2566,9 @@ Like C<bullet_para_style>, but for paragraphs under C<=item>.
 
 =cut
 
-sub first_item_para_style     { 'BL1' }
-sub item_para_style           { 'BL' }
-sub last_item_para_style      { 'BLX' }
+sub first_item_para_style     { 'BL1'          }
+sub middle_item_para_style    { 'BL'           }
+sub last_item_para_style      { 'BLX'          }
 sub item_subpara_style        { 'BodyNoIndent' }
 
 =item inline_code_style
