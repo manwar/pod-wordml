@@ -318,6 +318,8 @@ qq|  <w:p>
     <w:r>
       <w:t>|;
 	
+	$self->{'scratch'} .= "\x{25FE} " if $self->{in_item};
+		
 	$self->emit;
 	
 	$self->{'in_para'} = 1; 

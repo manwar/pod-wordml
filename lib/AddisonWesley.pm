@@ -593,7 +593,7 @@ sub styles
         <w:tab w:val="left" w:pos="720" />
       </w:tabs>
       <w:spacing w:after="60" w:line="220" w:line-rule="at-least" />
-      <w:ind w:left="720" w:right="720" w:hanging="720" />
+      <w:ind w:left="1200" w:right="720" w:hanging="720" />
     </w:pPr>
     <w:rPr>
       <w:rFonts w:ascii="Times New Roman" w:h-ansi="Times New Roman" />
