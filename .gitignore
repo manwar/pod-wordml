@@ -8,3 +8,4 @@ Changes.bak
 .DS_Store
 test-corpus/*.debug
 Pod-*
+*.bak
