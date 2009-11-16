@@ -20,6 +20,7 @@ sub transform_file
 	
 	ok( -e $file, "Input file is there" );
 	
+	$parser->no_whining( ! ( $ENV{DEBUG} || 0 ) );
 	$parser->complain_stderr( 1 );
 	$parser->output_string( \my $output );
 	$parser->parse_file( $file );

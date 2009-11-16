@@ -10,7 +10,7 @@ use vars qw($VERSION);
 
 use Carp;
 
-$VERSION = '0.11';
+$VERSION = '0.12';
 
 =head1 NAME
 
@@ -422,7 +422,6 @@ sub start_item_bullet
 	
 	$self->{in_item} = 1;
 	$self->{item_count}++;
-	warn "Starting Item: " . Dumper( $hash ). "\n";
 
 	my $text = $hash->{'~orig_content'};
 	$text =~ s/^\* //;
@@ -434,9 +433,7 @@ sub start_item_block  { not_implemented() }
 sub start_item_text   { not_implemented() }
 
 sub end_item_bullet
-	{ 
-	warn "Ending item\n";
-	
+	{ 	
 	my $self = shift;
 	$self->{in_item} = 0;
 	}	
@@ -446,7 +443,6 @@ sub end_item_text   { not_implemented() }
 
 sub start_over_bullet
 	{ 
-	warn "Start over bullet\n";
 	my $self = shift;
 
 	$self->{in_item_list} = 1;
@@ -457,9 +453,7 @@ sub start_over_block  { not_implemented() }
 sub start_over_number { not_implemented() }
 
 sub end_over_bullet 
-	{
-	warn "End over bullet\n";
-	
+	{	
 	my $self = shift;
 	
 	$self->end_non_code_text;
@@ -622,7 +616,7 @@ package Pod::Simple::BlackBox;
 
 sub _ponder_Verbatim {
 	my ($self,$para) = @_;
-	DEBUG and print " giving verbatim treatment...\n";
+	DEBUG and print STDERR " giving verbatim treatment...\n";
 
 	$para->[1]{'xml:space'} = 'preserve';
 	foreach my $line ( @$para[ 2 .. $#$para ] ) 

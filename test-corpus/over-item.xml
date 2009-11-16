@@ -8,7 +8,127 @@
       <w:pStyle w:val="NormalParagraphStyle" />
     </w:pPr>
     <w:r>
-      <w:t>This is the first paragraph.</w:t>
+      <w:t>This is the bulleted paragraph.</w:t>
+    </w:r>
+  </w:p>
+  <w:p>
+    <w:pPr>
+      <w:pStyle w:val="bullet item" />
+    </w:pPr>
+    <w:r>
+      <w:t>Item A</w:t>
+    </w:r>
+  </w:p>
+  <w:p>
+    <w:pPr>
+      <w:pStyle w:val="bullet item" />
+    </w:pPr>
+    <w:r>
+      <w:t>Item B</w:t>
+    </w:r>
+  </w:p>
+  <w:p>
+    <w:pPr>
+      <w:pStyle w:val="bullet item" />
+    </w:pPr>
+    <w:r>
+      <w:t>Item C</w:t>
+    </w:r>
+  </w:p>
+  <w:p>
+    <w:pPr>
+      <w:pStyle w:val="NormalParagraphStyle" />
+    </w:pPr>
+    <w:r>
+      <w:t>This is the numbered paragraph.</w:t>
+    </w:r>
+  </w:p>
+  <w:p>
+    <w:pPr>
+      <w:pStyle w:val="bullet item" />
+    </w:pPr>
+    <w:r>
+      <w:t></w:t>
+    </w:r>
+  </w:p>
+  <w:p>
+    <w:pPr>
+      <w:pStyle w:val="bullet item" />
+    </w:pPr>
+    <w:r>
+      <w:t></w:t>
+    </w:r>
+  </w:p>
+  <w:p>
+    <w:pPr>
+      <w:pStyle w:val="bullet item" />
+    </w:pPr>
+    <w:r>
+      <w:t></w:t>
+    </w:r>
+  </w:p>
+  <w:p>
+    <w:pPr>
+      <w:pStyle w:val="NormalParagraphStyle" />
+    </w:pPr>
+    <w:r>
+      <w:t>This is the text paragraph.</w:t>
+    </w:r>
+  </w:p>
+  <w:p>
+    <w:pPr>
+      <w:pStyle w:val="bullet item" />
+    </w:pPr>
+    <w:r>
+      <w:t></w:t>
+    </w:r>
+  </w:p>
+  <w:p>
+    <w:pPr>
+      <w:pStyle w:val="BulletParagraphStyle" />
+    </w:pPr>
+    <w:r>
+      <w:t>This is a line under Heading A.</w:t>
+    </w:r>
+  </w:p>
+  <w:p>
+    <w:pPr>
+      <w:pStyle w:val="bullet item" />
+    </w:pPr>
+    <w:r>
+      <w:t></w:t>
+    </w:r>
+  </w:p>
+  <w:p>
+    <w:pPr>
+      <w:pStyle w:val="BulletParagraphStyle" />
+    </w:pPr>
+    <w:r>
+      <w:t>This is a line under Heading B.</w:t>
+    </w:r>
+  </w:p>
+  <w:p>
+    <w:pPr>
+      <w:pStyle w:val="bullet item" />
+    </w:pPr>
+    <w:r>
+      <w:t></w:t>
+    </w:r>
+  </w:p>
+  <w:p>
+    <w:pPr>
+      <w:pStyle w:val="BulletParagraphStyle" />
+    </w:pPr>
+    <w:r>
+      <w:t>This is a line under Heading C.</w:t>
+    </w:r>
+  </w:p>
+  <w:p>
+    <w:pPr>
+      <w:pStyle w:val="NormalParagraphStyle" />
+    </w:pPr>
+    <w:r>
+      <w:t>This is the final paragraph.</w:t>
     </w:r>
   </w:p>
 </w:body>
