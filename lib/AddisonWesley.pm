@@ -2549,7 +2549,7 @@ sub head2_style          { 'HD' }
 sub head3_style          { 'HE' }
 sub head4_style          { 'HF' }
 
-=item normal_paragraph_style
+=item normal_para_style
 
 The paragraph style for normal Pod paragraphs. You don't have to use this
 for all normal paragraphs, but you'll have to override and extend more things
@@ -2559,6 +2559,15 @@ get more variety.
 =cut
 
 sub normal_para_style   { 'BodyNoIndent' }
+
+=item bullet_para_style
+
+Like C<bullet_para_style>, but for paragraphs under C<=item>.
+
+=cut
+
+sub bullet_para_style   { 'BulletParagraphStyle' }
+sub bullet_item_style   { 'ListBullet' }
 
 =item inline_code_style
 

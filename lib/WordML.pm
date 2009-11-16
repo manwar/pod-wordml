@@ -8,6 +8,8 @@ no warnings;
 use subs qw();
 use vars qw($VERSION);
 
+use Carp;
+
 $VERSION = '0.11';
 
 =head1 NAME
@@ -100,14 +102,23 @@ get more variety.
 
 sub normal_para_style   { 'NormalParagraphStyle' }
 
-=item normal_paragraph_style
+=item bullet_paragraph_style
+
+Like C<normal_paragraph_style>, but for paragraphs sections under C<=item>
+sections.
+
+=cut
+
+sub bullet_para_style   { 'BulletParagraphStyle' }
+
+=item code_paragraph_style
 
 Like C<normal_paragraph_style>, but for verbatim sections. To get more fancy
 handling, you'll need to override C<start_Verbatim> and C<end_Verbatim>.
 
 =cut
 
-sub code_para_style     { 'CodeParagraphStyle'   }
+sub code_para_style        { 'CodeParagraphStyle'   }
 sub single_code_line_style { 'CodeParagraphStyle'   }
 
 =item inline_code_style
@@ -154,6 +165,7 @@ sub new { my $self = $_[0]->SUPER::new() }
 
 sub emit 
 	{
+	confess "Over ending shit" if $_[0]->{'scratch'} =~ /^Item C/;
 	print {$_[0]->{'output_fh'}} $_[0]->{'scratch'};
 	$_[0]->{'scratch'} = '';
 	return;
@@ -237,7 +249,7 @@ sub end_non_code_text
 	#$self->make_curly_quotes;
 	
 	#$self->{'scratch'} .= "\n"; 
-	$self->emit;
+	#$self->emit;
 	}
 
 =begin comment
@@ -287,7 +299,10 @@ sub start_Para
 	my $self = shift;
 	
 	# it would be nice to take this through make_para
-	my $style = $self->normal_para_style;
+	my $style = do {
+		if( $self->{in_item_list} ) { $self->bullet_para_style }
+		else                        { $self->normal_para_style }
+		};
 	
 	$self->{'scratch'}  =
 qq|  <w:p>
@@ -381,82 +396,82 @@ sub _get_initial_item_type
 	$type;
 	}
 
+=pod
+
+  <w:p wsp:rsidR="00FE5092" wsp:rsidRDefault="00FE5092" wsp:rsidP="00FE5092">
+    <w:pPr>
+      <w:pStyle w:val="ListBullet" />
+      <w:listPr>
+        <wx:t wx:val="·" />
+        <wx:font wx:val="Symbol" />
+      </w:listPr>
+    </w:pPr>
+    <w:r>
+      <w:t>List item 1</w:t>
+    </w:r>
+  </w:p>
+  
+=cut
+
+sub not_implemented { croak "Not implemented!" }
+
+sub bullet_item_style { 'bullet item' }
 sub start_item_bullet 
 	{
-	my $self = shift;
+	my( $self, $hash ) = @_;
 	
-	#warn "Starting Item bullet\n";
-	
-	#$self->emit;
+	$self->{in_item} = 1;
+	$self->{item_count}++;
+	warn "Starting Item: " . Dumper( $hash ). "\n";
+
+	my $text = $hash->{'~orig_content'};
+	$text =~ s/^\* //;
+	$self->make_para( $self->bullet_item_style,  $text );
 	}
 
-sub start_item_number { }
-sub start_item_text   { }
+sub start_item_number { not_implemented() }
+sub start_item_block  { not_implemented() }
+sub start_item_text   { not_implemented() }
 
-sub start_over_bullet 
+sub end_item_bullet
 	{ 
+	warn "Ending item\n";
+	
 	my $self = shift;
-	
-	$self->{in_bullet_list} = 1;
-	$self->{bullet_count} = 0;
+	$self->{in_item} = 0;
+	}	
+sub end_item_number { not_implemented() }
+sub end_item_block  { not_implemented() }
+sub end_item_text   { not_implemented() }
+
+sub start_over_bullet
+	{ 
+	warn "Start over bullet\n";
+	my $self = shift;
+
+	$self->{in_item_list} = 1;
+	$self->{item_count}   = 0;
 	}
-	
-sub start_over_text   { }
-sub start_over_block  { }
-sub start_over_number { }
+sub start_over_text   { not_implemented() }
+sub start_over_block  { not_implemented() }
+sub start_over_number { not_implemented() }
 
 sub end_over_bullet 
 	{
+	warn "End over bullet\n";
+	
 	my $self = shift;
 	
 	$self->end_non_code_text;
 	
-	$self->{in_bullet_list} = 0;	
-	$self->{bullet_count}   = 0;
-	$self->{last_thingy}    = 'bullet_list';
+	$self->{in_item_list} = 0;	
+	$self->{item_count}   = 0;
+	$self->{last_thingy}  = 'item_list';
+	$self->{scratch}      = '';
 	}
-	
-sub end_over_text   { }
-sub end_over_block  { }
-sub end_over_number { }
-
-sub end_item_bullet 
-	{ 
-	my $self = shift;
-	
-	$self->{scratch} = '';
-	$self->emit; 
-	}
-	
-sub end_item_number { $_[0]->emit() }
-sub end_item_text   { $_[0]->emit() }
-
-=begin comment
-
-</w:t>
-      </w:r>
-      <w:r wsp:rsidRPr="00F91496">
-        <w:rPr>
-          <w:rStyle w:val="E1" />
-        </w:rPr>
-        <w:t>bold</w:t>
-      </w:r>
-      <w:r>
-        <w:t>
-
-
-</w:t>
-      </w:r>
-      <w:r wsp:rsidRPr="00EE5839">
-        <w:rPr>
-          <w:rFonts w:ascii="Times New Roman" w:h-ansi="Times New Roman" />
-          <wx:font wx:val="Times New Roman" />
-          <w:i />
-        </w:rPr>
-        <w:t>        
-=end comment
-
-=cut
+sub end_over_text   { not_implemented() }
+sub end_over_block  { not_implemented() }
+sub end_over_number { not_implemented() }
 
 sub start_char_style
 	{
@@ -541,8 +556,14 @@ sub handle_text
 	my $pad = $self->get_pad;
 		
 	$self->escape_text( \$text );
-	$self->{$pad} .= $text;		
-	$self->make_curly_quotes unless( $self->dont_escape );
+	$self->{$pad} .= $text;
+	
+	unless( $self->dont_escape )
+		{
+		$self->make_curly_quotes;
+		$self->make_em_dashes;
+		$self->make_ellipses;
+		}
 	}
 
 sub dont_escape {
@@ -579,6 +600,18 @@ sub make_curly_quotes
 	
 	$self->{'scratch'} = $text;
 	
+	return 1;
+	}
+
+sub make_em_dashes
+	{		
+	$_[0]->{scratch} =~ s/'/&#x2014;/g;	
+	return 1;
+	}
+
+sub make_ellipses
+	{		
+	$_[0]->{scratch} =~ s/'/&#x2026;/g;	
 	return 1;
 	}
 	
