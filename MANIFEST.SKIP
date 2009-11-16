@@ -18,3 +18,6 @@ t/\d
 t/cover_db*
 ^cover_db\b
 .git
+POD-:wq
+Pod-
+.debug$
