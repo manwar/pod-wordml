@@ -109,7 +109,10 @@ sections.
 
 =cut
 
-sub bullet_para_style   { 'BulletParagraphStyle' }
+sub first_item_para_style     { 'FirstItemParagraphStyle' }
+sub middle_item_para_style    { 'MiddleItemParagraphStyle' }
+sub last_item_para_style      { 'LastItemParagraphStyle' }
+sub item_subpara_style        { 'ItemSubParagraphStyle' }
 
 =item code_paragraph_style
 
@@ -165,7 +168,6 @@ sub new { my $self = $_[0]->SUPER::new() }
 
 sub emit 
 	{
-	confess "Over ending shit" if $_[0]->{'scratch'} =~ /^Item C/;
 	print {$_[0]->{'output_fh'}} $_[0]->{'scratch'};
 	$_[0]->{'scratch'} = '';
 	return;
@@ -246,10 +248,9 @@ sub end_non_code_text
 	{
 	my $self = shift;
 	
-	#$self->make_curly_quotes;
+	$self->make_curly_quotes;
 	
-	#$self->{'scratch'} .= "\n"; 
-	#$self->emit;
+	$self->emit;
 	}
 
 =begin comment
@@ -300,8 +301,13 @@ sub start_Para
 	
 	# it would be nice to take this through make_para
 	my $style = do {
-		if( $self->{in_item_list} ) { $self->bullet_para_style }
-		else                        { $self->normal_para_style }
+		if( $self->{in_item} ) 
+			{
+			if( $self->{item_count} == 1 ) { $self->first_item_para_style }
+			else                           { $self->middle_item_para_style }
+			}
+		elsif( $self->{in_item_list} ) { $self->item_subpara_style }
+		else                           { $self->normal_para_style  }
 		};
 	
 	$self->{'scratch'}  =
@@ -418,14 +424,12 @@ sub not_implemented { croak "Not implemented!" }
 sub bullet_item_style { 'bullet item' }
 sub start_item_bullet 
 	{
-	my( $self, $hash ) = @_;
+	my( $self ) = @_;
 	
 	$self->{in_item} = 1;
 	$self->{item_count}++;
-
-	my $text = $hash->{'~orig_content'};
-	$text =~ s/^\* //;
-	$self->make_para( $self->bullet_item_style,  $text );
+	
+	$self->start_Para;
 	}
 
 sub start_item_number { not_implemented() }
@@ -435,6 +439,7 @@ sub start_item_text   { not_implemented() }
 sub end_item_bullet
 	{ 	
 	my $self = shift;
+	$self->end_Para;
 	$self->{in_item} = 0;
 	}	
 sub end_item_number { not_implemented() }
@@ -500,7 +505,7 @@ sub start_B
 	$_[0]->start_char_style( $_[0]->bold_char_style );
 	}
 
-sub inline_code_char_style { 'Italic' }
+sub inline_code_char_style { 'Code' }
 sub end_C   
 	{ 
 	$_[0]->end_char_style; 
@@ -542,10 +547,6 @@ sub end_U   { $_[0]->end_I   }
 sub handle_text
 	{
 	my( $self, $text ) = @_;
-	if( $self->{in_bullet_list} ) {
-		#warn "text is $text\n";
-		return;
-		}
 
 	my $pad = $self->get_pad;
 		
@@ -599,13 +600,13 @@ sub make_curly_quotes
 
 sub make_em_dashes
 	{		
-	$_[0]->{scratch} =~ s/'/&#x2014;/g;	
+	$_[0]->{scratch} =~ s/--/&#x2014;/g;	
 	return 1;
 	}
 
 sub make_ellipses
 	{		
-	$_[0]->{scratch} =~ s/'/&#x2026;/g;	
+	$_[0]->{scratch} =~ s/\Q.../&#x2026;/g;	
 	return 1;
 	}
 	
