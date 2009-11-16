@@ -4,16 +4,25 @@
 <w:ignoreSubtree w:val="http://schemas.microsoft.com/office/word/2003/wordml/sp2" />
 <w:body>
   <w:p>
+    <w:pPr>
+      <w:pStyle w:val="NormalParagraphStyle" />
+    </w:pPr>
     <w:r>
       <w:t>This is a simple paragraph.</w:t>
     </w:r>
   </w:p>
   <w:p>
+    <w:pPr>
+      <w:pStyle w:val="NormalParagraphStyle" />
+    </w:pPr>
     <w:r>
       <w:t>This is a second paragraph.</w:t>
     </w:r>
   </w:p>
   <w:p>
+    <w:pPr>
+      <w:pStyle w:val="NormalParagraphStyle" />
+    </w:pPr>
     <w:r>
       <w:t>And this is a third paragraph.</w:t>
     </w:r>

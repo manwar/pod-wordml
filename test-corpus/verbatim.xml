@@ -5,66 +5,72 @@
 <w:body>
   <w:p>
     <w:pPr>
+      <w:pStyle w:val="NormalParagraphStyle" />
+    </w:pPr>
+    <w:r>
       <w:t>This is a normal paragraph.</w:t>
     </w:r>
   </w:p>
   <w:p>
+    <w:pPr>
+      <w:pStyle w:val="first code line" />
+    </w:pPr>
     <w:r>
-      <w:rPr>
-        <w:rStyle w:val="first code line" />
-      </w:rPr>
       <w:t>#!/usr/bin/perl</w:t>
     </w:r>
   </w:p>
   <w:p>
+    <w:pPr>
+      <w:pStyle w:val="middle code line" />
+    </w:pPr>
     <w:r>
-      <w:rPr>
-        <w:rStyle w:val="middle code line" />
-      </w:rPr>
       <w:t>use strict;</w:t>
     </w:r>
   </w:p>
   <w:p>
+    <w:pPr>
+      <w:pStyle w:val="middle code line" />
+    </w:pPr>
     <w:r>
-      <w:rPr>
-        <w:rStyle w:val="middle code line" />
-      </w:rPr>
       <w:t>use warnings;</w:t>
     </w:r>
   </w:p>
   <w:p>
+    <w:pPr>
+      <w:pStyle w:val="middle code line" />
+    </w:pPr>
     <w:r>
-      <w:rPr>
-        <w:rStyle w:val="middle code line" />
-      </w:rPr>
       <w:t></w:t>
     </w:r>
   </w:p>
   <w:p>
+    <w:pPr>
+      <w:pStyle w:val="middle code line" />
+    </w:pPr>
     <w:r>
-      <w:rPr>
-        <w:rStyle w:val="middle code line" />
-      </w:rPr>
       <w:t>while( &lt;> ) {</w:t>
     </w:r>
   </w:p>
   <w:p>
+    <w:pPr>
+      <w:pStyle w:val="middle code line" />
+    </w:pPr>
     <w:r>
-      <w:rPr>
-        <w:rStyle w:val="middle code line" />
-      </w:rPr>
       <w:t>    print;</w:t>
     </w:r>
   </w:p>
   <w:p>
+    <w:pPr>
+      <w:pStyle w:val="last code line" />
+    </w:pPr>
     <w:r>
-      <w:rPr>
-        <w:rStyle w:val="last code line" />
-      </w:rPr>
       <w:t>    }</w:t>
     </w:r>
   </w:p>
   <w:p>
+    <w:pPr>
+      <w:pStyle w:val="NormalParagraphStyle" />
+    </w:pPr>
     <w:r>
       <w:t>This is an ending paragraph.</w:t>
     </w:r>

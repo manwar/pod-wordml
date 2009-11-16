@@ -4,6 +4,9 @@
 <w:ignoreSubtree w:val="http://schemas.microsoft.com/office/word/2003/wordml/sp2" />
 <w:body>
   <w:p>
+    <w:pPr>
+      <w:pStyle w:val="NormalParagraphStyle" />
+    </w:pPr>
     <w:r>
       <w:t>This is a simple paragraph with </w:t>
     </w:r>
@@ -23,7 +26,7 @@
       <w:t>Italic</w:t>
     </w:r>
     <w:r>
-      <w:t> text, and some &lt; and &gt; signs.</w:t>
+      <w:t> text, and some &amp;lt; and &amp;gt; signs.</w:t>
     </w:r>
   </w:p>
 </w:body>
