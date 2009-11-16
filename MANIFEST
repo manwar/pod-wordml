@@ -18,6 +18,10 @@ test-corpus/curly-quotes.pod
 test-corpus/curly-quotes.xml
 test-corpus/entities.pod
 test-corpus/entities.xml
+test-corpus/headings.pod
+test-corpus/headings.xml
+test-corpus/item-with-interior.pod
+test-corpus/item-with-interior.xml
 test-corpus/multi-para.pod
 test-corpus/multi-para.xml
 test-corpus/over-item.pod

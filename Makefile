@@ -56,11 +56,11 @@ DIRFILESEP = /
 DFSEP = $(DIRFILESEP)
 NAME = Pod::WordML
 NAME_SYM = Pod_WordML
-VERSION = 0.12
+VERSION = 0.13
 VERSION_MACRO = VERSION
-VERSION_SYM = 0_12
+VERSION_SYM = 0_13
 DEFINE_VERSION = -D$(VERSION_MACRO)=\"$(VERSION)\"
-XS_VERSION = 0.12
+XS_VERSION = 0.13
 XS_VERSION_MACRO = XS_VERSION
 XS_DEFINE_VERSION = -D$(XS_VERSION_MACRO)=\"$(XS_VERSION)\"
 INST_ARCHLIB = blib/arch
@@ -255,7 +255,7 @@ RCS_LABEL = rcs -Nv$(VERSION_SYM): -q
 DIST_CP = best
 DIST_DEFAULT = tardist
 DISTNAME = Pod-WordML
-DISTVNAME = Pod-WordML-0.12
+DISTVNAME = Pod-WordML-0.13
 
 
 # --- MakeMaker macro section:
@@ -478,7 +478,7 @@ metafile : create_distdir
 	$(NOECHO) $(ECHO) Generating META.yml
 	$(NOECHO) $(ECHO) '--- #YAML:1.0' > META_new.yml
 	$(NOECHO) $(ECHO) 'name:               Pod-WordML' >> META_new.yml
-	$(NOECHO) $(ECHO) 'version:            0.12' >> META_new.yml
+	$(NOECHO) $(ECHO) 'version:            0.13' >> META_new.yml
 	$(NOECHO) $(ECHO) 'abstract:           Convert Pod to Microsoft'\''s WordML format' >> META_new.yml
 	$(NOECHO) $(ECHO) 'author:' >> META_new.yml
 	$(NOECHO) $(ECHO) '    - brian d foy <bdfoy@cpan.org>' >> META_new.yml
@@ -790,7 +790,7 @@ testdb_static :: testdb_dynamic
 # --- MakeMaker ppd section:
 # Creates a PPD (Perl Package Description) for a binary distribution.
 ppd :
-	$(NOECHO) $(ECHO) '<SOFTPKG NAME="$(DISTNAME)" VERSION="0,12,0,0">' > $(DISTNAME).ppd
+	$(NOECHO) $(ECHO) '<SOFTPKG NAME="$(DISTNAME)" VERSION="0,13,0,0">' > $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '    <TITLE>$(DISTNAME)</TITLE>' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '    <ABSTRACT>Convert Pod to Microsoft'\''s WordML format</ABSTRACT>' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '    <AUTHOR>brian d foy &lt;bdfoy@cpan.org&gt;</AUTHOR>' >> $(DISTNAME).ppd
