@@ -13,9 +13,6 @@ t/lib/transform_file.pl
 t/load.t
 t/pod.t
 t/pod_coverage.t
-t/prereq.t
-t/quotes.t
-t/start_doc.t
 t/test_manifest
 test-corpus/curly-quotes.pod
 test-corpus/curly-quotes.xml
