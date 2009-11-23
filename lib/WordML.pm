@@ -520,11 +520,11 @@ sub end_C
 	}
 	
 sub italic_char_style { 'Italic' }
-sub end_I    { $_[0]->end_char_style }
-sub start_I  
-	{	
-	$_[0]->start_char_style( $_[0]->italic_char_style );
-	}
+sub end_I   { $_[0]->end_char_style }
+sub start_I { $_[0]->start_char_style( $_[0]->italic_char_style ); }
+
+sub start_F { $_[0]->end_char_style }
+sub end_F   { $_[0]->start_char_style( $_[0]->italic_char_style ); }
 
 sub start_M
 	{	
