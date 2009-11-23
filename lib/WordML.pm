@@ -176,7 +176,7 @@ sub emit
 sub get_pad
 	{
 	# flow elements first
-	   if( $_[0]{module_flag}   ) { 'module_text'   }
+	   if( $_[0]{module_flag}   ) { 'scratch'   }
 	elsif( $_[0]{url_flag}      ) { 'url_text'      }
 	# then block elements
 	# finally the default
@@ -508,15 +508,15 @@ sub start_B
 	}
 
 sub inline_code_char_style { 'Code' }
-sub end_C   
-	{ 
-	$_[0]->end_char_style; 
-	$_[0]->{in_C} = 0;
-	}
 sub start_C  
 	{
 	$_[0]->{in_C} = 1;
 	$_[0]->start_char_style( $_[0]->inline_code_char_style );
+	}
+sub end_C   
+	{ 
+	$_[0]->end_char_style; 
+	$_[0]->{in_C} = 0;
 	}
 	
 sub italic_char_style { 'Italic' }
@@ -525,7 +525,6 @@ sub start_I
 	{	
 	$_[0]->start_char_style( $_[0]->italic_char_style );
 	}
-
 
 sub start_M
 	{	
