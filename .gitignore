@@ -9,3 +9,4 @@ Changes.bak
 test-corpus/*.debug
 Pod-*
 *.bak
+Makefile
