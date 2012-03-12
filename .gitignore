@@ -10,3 +10,4 @@ test-corpus/*.debug
 Pod-*
 *.bak
 Makefile
+MYMETA.yml
