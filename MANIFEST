@@ -1,3 +1,4 @@
+.svnignore
 Changes
 examples/placeholder.pl
 lib/Pod/WordML.pm
@@ -5,7 +6,7 @@ lib/Pod/WordML/AddisonWesley.pm
 LICENSE
 Makefile.PL
 MANIFEST			This list of files
-MYMETA.yml
+MANIFEST.SKIP
 README
 t/convert_pod.t
 t/lib/transform_file.pl
