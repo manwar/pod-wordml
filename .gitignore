@@ -11,3 +11,4 @@ Pod-*
 *.bak
 Makefile
 MYMETA.yml
+MYMETA*
