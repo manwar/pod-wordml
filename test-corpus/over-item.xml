@@ -16,7 +16,7 @@
       <w:pStyle w:val="FirstItemParagraphStyle" />
     </w:pPr>
     <w:r>
-      <w:t>Item A</w:t>
+      <w:t>◾ Item A</w:t>
     </w:r>
   </w:p>
   <w:p>
@@ -24,7 +24,7 @@
       <w:pStyle w:val="MiddleItemParagraphStyle" />
     </w:pPr>
     <w:r>
-      <w:t>Item B</w:t>
+      <w:t>◾ Item B</w:t>
     </w:r>
   </w:p>
   <w:p>
@@ -32,7 +32,7 @@
       <w:pStyle w:val="MiddleItemParagraphStyle" />
     </w:pPr>
     <w:r>
-      <w:t>Item C</w:t>
+      <w:t>◾ Item C</w:t>
     </w:r>
   </w:p>
   <w:p>
@@ -48,7 +48,7 @@
       <w:pStyle w:val="FirstItemParagraphStyle" />
     </w:pPr>
     <w:r>
-      <w:t>1. One</w:t>
+      <w:t>◾ 1. One</w:t>
     </w:r>
   </w:p>
   <w:p>
@@ -56,7 +56,7 @@
       <w:pStyle w:val="MiddleItemParagraphStyle" />
     </w:pPr>
     <w:r>
-      <w:t>2. Two</w:t>
+      <w:t>◾ 2. Two</w:t>
     </w:r>
   </w:p>
   <w:p>
@@ -64,7 +64,7 @@
       <w:pStyle w:val="MiddleItemParagraphStyle" />
     </w:pPr>
     <w:r>
-      <w:t>3. Three</w:t>
+      <w:t>◾ 3. Three</w:t>
     </w:r>
   </w:p>
   <w:p>
@@ -80,7 +80,7 @@
       <w:pStyle w:val="FirstItemParagraphStyle" />
     </w:pPr>
     <w:r>
-      <w:t>Heading A</w:t>
+      <w:t>◾ Heading A</w:t>
     </w:r>
   </w:p>
   <w:p>
@@ -96,7 +96,7 @@
       <w:pStyle w:val="MiddleItemParagraphStyle" />
     </w:pPr>
     <w:r>
-      <w:t>Heading B</w:t>
+      <w:t>◾ Heading B</w:t>
     </w:r>
   </w:p>
   <w:p>
@@ -112,7 +112,7 @@
       <w:pStyle w:val="MiddleItemParagraphStyle" />
     </w:pPr>
     <w:r>
-      <w:t>Heading C</w:t>
+      <w:t>◾ Heading C</w:t>
     </w:r>
   </w:p>
   <w:p>

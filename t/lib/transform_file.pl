@@ -29,13 +29,17 @@ sub transform_file
 	
 	ok( -e $output_reference, "Output reference file is there" );
 	
-	my $expected_output = do { local $/; local @ARGV = $output_reference; <> };
+	my $expected_output = do {
+		local $/;
+		open my $fh, '<:utf8', $output_reference;
+		<$fh> 
+		};
 	
 	is_string( $output, $expected_output, "Regression for $pod_file" );
 	
 	if( $ENV{DEBUG} )
 		{
-		open my( $fh ), ">", "$output_reference.debug"
+		open my( $fh ), ">:utf8", "$output_reference.debug"
 			or die "Could not open debug file: $!\n";
 		print $fh "\n$output\n"
 		}

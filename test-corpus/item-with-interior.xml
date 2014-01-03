@@ -8,7 +8,7 @@
       <w:pStyle w:val="FirstItemParagraphStyle" />
     </w:pPr>
     <w:r>
-      <w:t>The </w:t>
+      <w:t>◾ The </w:t>
     </w:r>
     <w:r>
       <w:rPr>
@@ -33,7 +33,7 @@
       <w:pStyle w:val="MiddleItemParagraphStyle" />
     </w:pPr>
     <w:r>
-      <w:t></w:t>
+      <w:t>◾ </w:t>
     </w:r>
     <w:r>
       <w:rPr>
@@ -50,7 +50,7 @@
       <w:pStyle w:val="MiddleItemParagraphStyle" />
     </w:pPr>
     <w:r>
-      <w:t></w:t>
+      <w:t>◾ </w:t>
     </w:r>
     <w:r>
       <w:rPr>
@@ -67,7 +67,7 @@
       <w:pStyle w:val="MiddleItemParagraphStyle" />
     </w:pPr>
     <w:r>
-      <w:t></w:t>
+      <w:t>◾ </w:t>
     </w:r>
     <w:r>
       <w:rPr>
