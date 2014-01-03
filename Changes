@@ -1,4 +1,8 @@
 
+0.15 - Fri Jan  3 13:26:50 2014
+	* Update the expected output to make the tests pass
+	* Get rid of MYMETA
+
 0.13 - Mon Nov 16 04:37:32 2009
 	* The claim that I handled =item, em dashes, and ellipsis
 	in 0.12 was a big lie. Let's hope it's the truth this 
