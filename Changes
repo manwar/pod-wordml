@@ -1,4 +1,8 @@
 
+0.16 - Sun Jan  5 22:26:14 2014
+	* Get rid of pod coverage tests, since almost all of the methods
+	come from the Pod::Simple interface
+
 0.15 - Fri Jan  3 13:26:50 2014
 	* Update the expected output to make the tests pass
 	* Get rid of MYMETA
