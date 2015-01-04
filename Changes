@@ -1,4 +1,4 @@
-# Changes to Pod::WordML
+Revision history for Perl module Pod::WordML
 
 0.16 - Sun Jan  5 22:26:14 2014
 	* Get rid of pod coverage tests, since almost all of the methods
