@@ -2,28 +2,34 @@ require 5.010;
 use strict;
 use warnings;
 
-my $github    = 'https://github.com/briandfoy/';
-my $main_file = 'lib/';
+use File::Spec::Functions qw(catfile);
+
+my $module    = 'Pod::WordML';
+my $github    = 'https://github.com/briandfoy/Pod-WordML';
+my $main_file = catfile( 'lib', split /::/, "$module.pm" );
 
 my %WriteMakefile = (
-	'NAME'	       => 'Pod::WordML',
+	'NAME'	        => $module,
 	'ABSTRACT_FROM' => $main_file,
-	'VERSION_FROM' => 'lib/Pod/WordML.pm',
-	'LICENSE'      => 'perl',
-	'AUTHOR'       => 'brian d foy <bdfoy@cpan.org>',
+	'VERSION_FROM'  => $main_file,
+	'LICENSE'       => 'perl',
+	'AUTHOR'        => 'brian d foy <bdfoy@cpan.org>',
 	
-	'PREREQ_PM'    => { 
-		'Pod::PseudoPod'      => '0',
-		'Tie::Cycle'          => '0',
-		'Pod::Escapes'        => '0',
-		},
-
 	'CONFIGURE_REQUIRES' => {
 		'ExtUtils::MakeMaker' => '6.64',
 		},
 
+	'BUILD_REQUIRES' => {
+		},
+
 	'TEST_REQUIRES' => {
-		'Test::LongString'    => '0',
+		'Test::More' => '0.94',
+		},
+
+	'PREREQ_PM'     => {
+		'Pod::PseudoPod'      => '0',
+		'Tie::Cycle'          => '0',
+		'Pod::Escapes'        => '0',
 		},
 
 	'META_MERGE' => {
@@ -31,9 +37,13 @@ my %WriteMakefile = (
 		resources => {
 			repository => {
 				type => 'git',
-				url  => 'git@github.com:briandfoy/Pod-WordML.git',
-				web  => 'https://github.com/briandfoy/Pod-WordML',
+				url  => "$github.git",
+				web  => $github,
 				},
+			bugtraker => {
+				web    => "$github/issues",
+				},
+			homepage => $github,
 			},
 		no_index => {
 			package   => [ qw( Pod::Escapes Pod::Simple::BlackBox ) ],
