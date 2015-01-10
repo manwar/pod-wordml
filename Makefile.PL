@@ -1,10 +1,12 @@
 require 5.010;
+
+package Pod::WordML;
 use strict;
 use warnings;
 
 use File::Spec::Functions qw(catfile);
 
-my $module    = 'Pod::WordML';
+my $module    = __PACKAGE__;
 ( my $dist = $module ) =~ s/::/-/g;
 
 my $github    = 'https://github.com/briandfoy/Pod-WordML';
