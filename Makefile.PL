@@ -53,7 +53,7 @@ my %WriteMakefile = (
 			},
 		},
 
-	clean  => { FILES    => q|Pod-WordML-*| },
+	clean => { FILES => "$dist-*" },
 	);
 
 sub arguments { \%WriteMakefile }
