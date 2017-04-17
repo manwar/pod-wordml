@@ -2,14 +2,15 @@
 use strict;
 use warnings;
 
-use Test::More;
+use Test::More 0.98;
 
 use File::Spec::Functions;
 require './t/lib/transform_file.pl';
 
-chdir 'test-corpus';
-my @files = glob( '*.pod' );
-chdir '..';
+my @files =
+	map { s|\Atest-corpus[\\/]||; $_ }
+	glob( 'test-corpus/*.pod' )
+	;
 
 foreach my $file ( @files ) {
 	subtest "$file" => sub { transform_file( $file ) };
