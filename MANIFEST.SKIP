@@ -63,3 +63,4 @@
 \.lwpcookies
 Pod-.*
 .debug$
+\.appveyor\.yml
