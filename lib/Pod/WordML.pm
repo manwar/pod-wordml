@@ -719,7 +719,7 @@ L<Pod::PseudoPod>, L<Pod::Simple>
 
 This source is in Github:
 
-	http://github.com/briandfoy/Pod-WordML
+	http://github.com/briandfoy/pod-wordml
 
 If, for some reason, I disappear from the world, one of the other
 members of the project can shepherd this module appropriately.

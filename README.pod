@@ -88,16 +88,16 @@ the source repository:
 
 =over 4
 
-=item *	L<https://github.com/briandfoy/Pod-WordML>
+=item *	L<https://github.com/briandfoy/pod-wordml>
 
 =back
 
 If you find a problem, file a ticket in the L<issue
-tracker|https://github.com/briandfoy/Pod-WordML/issues>:
+tracker|https://github.com/briandfoy/pod-wordml/issues>:
 
 =over 4
 
-=item *	L<https://github.com/briandfoy/Pod-WordML/issues>
+=item *	L<https://github.com/briandfoy/pod-wordml/issues>
 
 =back
 
