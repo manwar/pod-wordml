@@ -28,7 +28,7 @@ Pod::WordML - Turn Pod into Microsoft Word's WordML
 
 I wrote just enough of this module to get my job done, and I skipped every
 part of the specification I didn't need while still making it flexible enough
-to handle stuff later. 
+to handle stuff later.
 
 =head2 The style information
 
@@ -43,11 +43,11 @@ can override those in a subclass.
 =item document_header
 
 This is the start of the document that defines all of the styles. You'll need
-to override this. You can take this directly from 
+to override this. You can take this directly from
 
 =cut
 
-sub document_header  
+sub document_header
 	{
 	my $string = <<'XML';
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
@@ -63,7 +63,7 @@ XML
 XML
 	}
 
-	
+
 sub fonts  { '' }
 sub lists  { '' }
 sub styles { '' }
@@ -79,7 +79,7 @@ sub document_footer
 </w:wordDocument>
 XML
 	}
-	
+
 =item head1_style, head2_style, head3_style, head4_style
 
 The paragraph styles to use with each heading level. By default these are
@@ -97,7 +97,7 @@ sub head4_style         { 'Heading4' }
 
 The paragraph style for normal Pod paragraphs. You don't have to use this
 for all normal paragraphs, but you'll have to override and extend more things
-to get everything just how you like. You'll need to override C<start_Para> to 
+to get everything just how you like. You'll need to override C<start_Para> to
 get more variety.
 
 =cut
@@ -168,7 +168,7 @@ Everything else is the same stuff from C<Pod::Simple>.
 use Data::Dumper;
 sub new { my $self = $_[0]->SUPER::new() }
 
-sub emit 
+sub emit
 	{
 	print {$_[0]->{'output_fh'}} $_[0]->{'scratch'};
 	$_[0]->{'scratch'} = '';
@@ -190,10 +190,10 @@ sub start_Document
 	$_[0]->{'scratch'} .= $_[0]->document_header; $_[0]->emit;
 	}
 
-sub end_Document    
+sub end_Document
 	{
 	$_[0]->{'scratch'} .= $_[0]->document_footer; $_[0]->emit;
-	}	
+	}
 
 =begin comment
 
@@ -211,7 +211,7 @@ sub end_Document
 sub _header_start
 	{
 	my( $self, $style, $level ) = @_;
-	
+
 	my $format = '  <w:p>
     <w:pPr>
       <w:pStyle w:val="%s" />
@@ -222,18 +222,18 @@ sub _header_start
 	$self->{scratch} = sprintf $format, $style;
 	$self->emit;
 	}
-	
+
 sub _header_end
 	{
 	'</w:t>
     </w:r>
   </w:p>
-';	
+';
 	}
 
 sub start_head0     { $_[0]->_header_start( $_[0]->head0_style, 0 ); }
 sub end_head0       { $_[0]{'scratch'}  .= $_[0]->_header_end; $_[0]->end_non_code_text }
-	
+
 sub start_head1     { $_[0]->_header_start( $_[0]->head1_style, 1 ); }
 sub end_head1       { $_[0]{'scratch'}  .= $_[0]->_header_end; $_[0]->end_non_code_text }
 
@@ -249,9 +249,9 @@ sub end_head4       { $_[0]{'scratch'} .= $_[0]->_header_end; $_[0]->end_non_cod
 sub end_non_code_text
 	{
 	my $self = shift;
-	
+
 	$self->make_curly_quotes;
-	
+
 	$self->emit;
 	}
 
@@ -282,7 +282,7 @@ sub end_non_code_text
 sub make_para
 	{
 	my( $self, $style, $para ) = @_;
-	
+
 	$self->{'scratch'}  =
 qq|  <w:p>
     <w:pPr>
@@ -293,17 +293,17 @@ qq|  <w:p>
     </w:r>
   </w:p>
 |;
-	
+
 	$self->emit;
 	}
-	
-sub start_Para      
-	{ 
+
+sub start_Para
+	{
 	my $self = shift;
-	
+
 	# it would be nice to take this through make_para
 	my $style = do {
-		if( $self->{in_item} ) 
+		if( $self->{in_item} )
 			{
 			if( $self->{item_count} == 1 ) { $self->first_item_para_style }
 			else                           { $self->middle_item_para_style }
@@ -311,7 +311,7 @@ sub start_Para
 		elsif( $self->{in_item_list} ) { $self->item_subpara_style }
 		else                           { $self->normal_para_style  }
 		};
-	
+
 	$self->{'scratch'}  =
 qq|  <w:p>
     <w:pPr>
@@ -319,26 +319,26 @@ qq|  <w:p>
     </w:pPr>
     <w:r>
       <w:t>|;
-	
+
 	$self->{'scratch'} .= "\x{25FE} " if $self->{in_item};
-		
+
 	$self->emit;
-	
-	$self->{'in_para'} = 1; 
+
+	$self->{'in_para'} = 1;
 	}
 
 
-sub end_Para        
-	{ 
+sub end_Para
+	{
 	my $self = shift;
-	
+
 	$self->{'scratch'} .= '</w:t>
     </w:r>
   </w:p>
 ';
 
 	$self->emit;
-	
+
 	$self->end_non_code_text;
 
 	$self->{'in_para'} = 0;
@@ -355,24 +355,24 @@ sub last_code_line_style   { 'last code line'    }
 sub first_code_line  { $_[0]->make_para( $_[0]->first_code_line_style,  $_[1] ) }
 sub middle_code_line { $_[0]->make_para( $_[0]->middle_code_line_style, $_[1] ) }
 sub last_code_line   { $_[0]->make_para( $_[0]->last_code_line_style,   $_[1] ) }
-	
-sub start_Verbatim 
-	{ 
-	$_[0]{'in_verbatim'} = 1; 
+
+sub start_Verbatim
+	{
+	$_[0]{'in_verbatim'} = 1;
 	}
 
-sub end_Verbatim 
+sub end_Verbatim
 	{
 	my $self = shift;
-	
+
 	# get rid of all but one trailing newline
 	$self->{'scratch'} =~ s/\s+\z//;
-	
+
 	chomp( my @lines = split m/^/m, $self->{'scratch'} );
 	$self->{'scratch'} = '';
-	
+
 	@lines = map { s/</&lt;/g; $_ } @lines;
-	
+
 	if( @lines == 1 )
 		{
 		$self->make_para( $self->single_code_line_style, @lines );
@@ -380,29 +380,29 @@ sub end_Verbatim
 	elsif( @lines )
 		{
 		my $first = shift @lines;
-		my $last  = pop   @lines;	
-			
+		my $last  = pop   @lines;
+
 		$self->first_code_line( $first );
-	
+
 		foreach my $line ( @lines )
 			{
 			$self->middle_code_line( $line );
 			}
-		
+
 		$self->last_code_line( $last );
 		}
-		
+
 	$self->{'in_verbatim'} = 0;
 	}
 
-sub _get_initial_item_type 
+sub _get_initial_item_type
 	{
 	my $self = shift;
-  
+
 	my $type = $self->SUPER::_get_initial_item_type;
-  
+
 	#print STDERR "My item type is [$type]\n";
-  
+
 	$type;
 	}
 
@@ -420,19 +420,19 @@ sub _get_initial_item_type
       <w:t>List item 1</w:t>
     </w:r>
   </w:p>
-  
+
 =cut
 
 sub not_implemented { croak "Not implemented!" }
 
 sub bullet_item_style { 'bullet item' }
-sub start_item_bullet 
+sub start_item_bullet
 	{
 	my( $self ) = @_;
-	
+
 	$self->{in_item} = 1;
 	$self->{item_count}++;
-	
+
 	$self->start_Para;
 	}
 
@@ -441,17 +441,17 @@ sub start_item_block  { not_implemented() }
 sub start_item_text   { not_implemented() }
 
 sub end_item_bullet
-	{ 	
+	{
 	my $self = shift;
 	$self->end_Para;
 	$self->{in_item} = 0;
-	}	
+	}
 sub end_item_number { not_implemented() }
 sub end_item_block  { not_implemented() }
 sub end_item_text   { not_implemented() }
 
 sub start_over_bullet
-	{ 
+	{
 	my $self = shift;
 
 	$self->{in_item_list} = 1;
@@ -461,13 +461,13 @@ sub start_over_text   { not_implemented() }
 sub start_over_block  { not_implemented() }
 sub start_over_number { not_implemented() }
 
-sub end_over_bullet 
-	{	
+sub end_over_bullet
+	{
 	my $self = shift;
-	
+
 	$self->end_non_code_text;
-	
-	$self->{in_item_list} = 0;	
+
+	$self->{in_item_list} = 0;
 	$self->{item_count}   = 0;
 	$self->{last_thingy}  = 'item_list';
 	$self->{scratch}      = '';
@@ -479,7 +479,7 @@ sub end_over_number { not_implemented() }
 sub start_char_style
 	{
 	my( $self, $style ) = @_;
-	
+
 	$self->{'scratch'} .= qq|</w:t>
     </w:r>
     <w:r>
@@ -492,7 +492,7 @@ sub start_char_style
 	}
 
 sub end_char_style
-	{	
+	{
 	$_[0]->{'scratch'} .= '</w:t>
     </w:r>
     <w:r>
@@ -504,23 +504,23 @@ sub end_char_style
 
 sub bold_char_style { 'Bold' }
 sub end_B    { $_[0]->end_char_style }
-sub start_B  
-	{	
+sub start_B
+	{
 	$_[0]->start_char_style( $_[0]->bold_char_style );
 	}
 
 sub inline_code_char_style { 'Code' }
-sub start_C  
+sub start_C
 	{
 	$_[0]->{in_C} = 1;
 	$_[0]->start_char_style( $_[0]->inline_code_char_style );
 	}
-sub end_C   
-	{ 
-	$_[0]->end_char_style; 
+sub end_C
+	{
+	$_[0]->end_char_style;
 	$_[0]->{in_C} = 0;
 	}
-	
+
 sub italic_char_style { 'Italic' }
 sub end_I   { $_[0]->end_char_style }
 sub start_I { $_[0]->start_char_style( $_[0]->italic_char_style ); }
@@ -529,7 +529,7 @@ sub start_F { $_[0]->end_char_style }
 sub end_F   { $_[0]->start_char_style( $_[0]->italic_char_style ); }
 
 sub start_M
-	{	
+	{
 	$_[0]{'module_flag'} = 1;
 	$_[0]{'module_text'} = '';
 	$_[0]->start_C;
@@ -552,10 +552,10 @@ sub handle_text
 	my( $self, $text ) = @_;
 
 	my $pad = $self->get_pad;
-		
+
 	$self->escape_text( \$text );
 	$self->{$pad} .= $text;
-	
+
 	unless( $self->dont_escape )
 		{
 		$self->make_curly_quotes;
@@ -568,11 +568,11 @@ sub dont_escape {
 	my $self = shift;
 	$self->{in_verbatim} || $self->{in_C}
 	}
-	
+
 sub escape_text
 	{
 	my( $self, $text_ref ) = @_;
-	
+
 	$$text_ref =~ s/&/&amp;/g;
 	$$text_ref =~ s/</&lt;/g;
 
@@ -582,37 +582,37 @@ sub escape_text
 sub make_curly_quotes
 	{
 	my( $self ) = @_;
-		
+
 	my $text = $self->{scratch};
-	
+
 	require Tie::Cycle;
-	
+
 	tie my $cycle, 'Tie::Cycle', [ qw( &#x201C; &#x201D; ) ];
 
 	1 while $text =~ s/"/$cycle/;
-		
+
 	# escape escape chars. This is escpaing them for InDesign
 	# so don't worry about double escaping for other levels. Don't
 	# worry about InDesign in the pod.
 	$text =~ s/'/&#x2019;/g;
-	
+
 	$self->{'scratch'} = $text;
-	
+
 	return 1;
 	}
 
 sub make_em_dashes
-	{		
-	$_[0]->{scratch} =~ s/--/&#x2014;/g;	
+	{
+	$_[0]->{scratch} =~ s/--/&#x2014;/g;
 	return 1;
 	}
 
 sub make_ellipses
-	{		
-	$_[0]->{scratch} =~ s/\Q.../&#x2026;/g;	
+	{
+	$_[0]->{scratch} =~ s/\Q.../&#x2026;/g;
 	return 1;
 	}
-	
+
 BEGIN {
 require Pod::Simple::BlackBox;
 
@@ -623,12 +623,12 @@ sub _ponder_Verbatim {
 	DEBUG and print STDERR " giving verbatim treatment...\n";
 
 	$para->[1]{'xml:space'} = 'preserve';
-	foreach my $line ( @$para[ 2 .. $#$para ] ) 
+	foreach my $line ( @$para[ 2 .. $#$para ] )
 		{
 		$line =~ s/^\t//gm;
 		$line =~ s/^(\t+)/" " x ( 4 * length($1) )/e
   		}
-  
+
   # Now the VerbatimFormatted hoodoo...
   if( $self->{'accept_codes'} and
       $self->{'accept_codes'}{'VerbatimFormatted'}
@@ -655,11 +655,11 @@ sub _ponder_Verbatim {
 BEGIN {
 
 # override _treat_Es so I can localize e2char
-sub _treat_Es 
-	{ 
+sub _treat_Es
+	{
 	my $self = shift;
 
-	require Pod::Escapes;	
+	require Pod::Escapes;
 	local *Pod::Escapes::e2char = *e2char_tagged_text;
 
 	$self->SUPER::_treat_Es( @_ );
@@ -668,33 +668,33 @@ sub _treat_Es
 sub e2char_tagged_text
 	{
 	package Pod::Escapes;
-	
+
 	my $in = shift;
 
 	return unless defined $in and length $in;
-	
-	   if( $in =~ m/^(0[0-7]*)$/ )         { $in = oct $in; } 
+
+	   if( $in =~ m/^(0[0-7]*)$/ )         { $in = oct $in; }
 	elsif( $in =~ m/^0?x([0-9a-fA-F]+)$/ ) { $in = hex $1;  }
 
-	if( $NOT_ASCII ) 
+	if( $NOT_ASCII )
 	  	{
-		unless( $in =~ m/^\d+$/ ) 
+		unless( $in =~ m/^\d+$/ )
 			{
 			$in = $Name2character{$in};
 			return unless defined $in;
-			$in = ord $in; 
+			$in = ord $in;
 	    	}
 
 		return $Code2USASCII{$in}
 			|| $Latin1Code_to_fallback{$in}
 			|| $FAR_CHAR;
 		}
- 
+
  	if( defined $Name2character_number{$in} and $Name2character_number{$in} < 127 )
  		{
  		return "&$in;";
  		}
-	elsif( defined $Name2character_number{$in} ) 
+	elsif( defined $Name2character_number{$in} )
 		{
 		# this needs to be fixed width because I want to look for
 		# it in a negative lookbehind
@@ -704,7 +704,7 @@ sub e2char_tagged_text
 		{
 		return '???';
 		}
-  
+
 	}
 }
 

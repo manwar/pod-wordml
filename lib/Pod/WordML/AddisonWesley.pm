@@ -26,7 +26,7 @@ Pod::WordML::AddisonWesley - Turn Pod into Microsoft Word's WordML using Addison
 
 I wrote just enough of this module to get my job done, and I skipped every
 part of the specification I didn't need while still making it flexible enough
-to handle stuff later. 
+to handle stuff later.
 
 =head2 The style information
 
@@ -41,7 +41,7 @@ can override those in a subclass.
 =item document_header
 
 This is the start of the document that defines all of the styles. You'll need
-to override this. You can take this directly from 
+to override this. You can take this directly from
 
 =cut
 
@@ -167,12 +167,12 @@ sub lists
   <w:list w:ilfo="1">
     <w:ilst w:val="0" />
   </w:list>
-</w:lists>	
+</w:lists>
 XML
 	}
-	
-	
-sub styles  
+
+
+sub styles
 	{
 	<<'XML';
 <w:styles>
@@ -2516,7 +2516,7 @@ sub document_footer
 </w:wordDocument>
 XML
 	}
-	
+
 =item chapter_number_style
 
 =item head1_style, head2_style, head3_style, head4_style
@@ -2531,10 +2531,10 @@ sub start_Document {
 	$_[0]->{item_number}    = 1;
 	$_[0]->SUPER::start_Document;
 	}
-	
+
 sub start_head0 {
 	$_[0]->make_para( $_[0]->chapter_number_style, $_[0]->{chapter_number}++ );
-	$_[0]->_header_start( $_[0]->head0_style, 0 ); 
+	$_[0]->_header_start( $_[0]->head0_style, 0 );
 	}
 
 sub start_head1 {
@@ -2555,7 +2555,7 @@ sub head4_style          { 'HF' }
 
 The paragraph style for normal Pod paragraphs. You don't have to use this
 for all normal paragraphs, but you'll have to override and extend more things
-to get everything just how you like. You'll need to override C<start_Para> to 
+to get everything just how you like. You'll need to override C<start_Para> to
 get more variety.
 
 =cut
@@ -2613,7 +2613,7 @@ sub last_code_line_style   { 'CDTX' }
 sub bold_char_style        { 'E1' }
 
 sub inline_code_char_style { 'CD1' }
-	
+
 sub italic_char_style      { 'E2' }
 
 =back
