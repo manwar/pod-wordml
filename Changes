@@ -1,5 +1,9 @@
 Revision history for Perl module Pod::WordML
 
+0.161 2017-04-17T09:40:47Z
+	* Fix a relative require issue for the upcoming removal of .
+	in @INC in v5.26.
+
 0.16 - 2014-01-05
 	* Get rid of pod coverage tests, since almost all of the methods
 	come from the Pod::Simple interface
