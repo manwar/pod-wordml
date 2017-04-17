@@ -1,5 +1,8 @@
 Revision history for Perl module Pod::WordML
 
+0.162 2017-04-17T09:44:59Z
+	* I renamed the GitHub repo, so lots of tiny references had to update
+
 0.161 2017-04-17T09:40:47Z
 	* Fix a relative require issue for the upcoming removal of .
 	in @INC in v5.26.
