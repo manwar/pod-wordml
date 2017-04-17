@@ -1,5 +1,8 @@
 Revision history for Perl module Pod::WordML
 
+0.163 2017-04-17T09:50:16Z
+	* Clarify that everything is under the Artistic License 2.0
+
 0.162 2017-04-17T09:44:59Z
 	* I renamed the GitHub repo, so lots of tiny references had to update
 
