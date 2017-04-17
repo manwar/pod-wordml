@@ -5,7 +5,7 @@ use warnings;
 use Test::More;
 
 use File::Spec::Functions;
-require 't/lib/transform_file.pl';
+require './t/lib/transform_file.pl';
 
 chdir 'test-corpus';
 my @files = glob( '*.pod' );
