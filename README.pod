@@ -14,10 +14,17 @@
 
 =head1 The Pod::WordML module
 
-This is the I<README> for the L<Pod::WordML> Perl module. You're probably 
-looking at this because you don't know where else to find what you're
-looking for. Read this once and you might never have to read one again 
-for any Perl module.
+This is the I<README> for the L<Pod::WordML> Perl module. I created
+this module to help write L<Effective Perl Programming|https://www.effectiveperlprogramming.com>
+and I did the minimum I needed to do to support the features I needed.
+In most places, I tried to program in a way that wouldn't limit future
+development. Unless I need it again, I'm unlikely to work on it. Make
+it your own!
+
+
+You're probably looking at this because you don't know where
+else to find what you're looking for. Read this once and you
+might never have to read one again for any Perl module.
 
 =head2 Documentation
 
