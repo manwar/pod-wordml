@@ -1,5 +1,8 @@
 Revision history for Perl module Pod::WordML
 
+0.164 2017-04-22T21:11:22Z
+	* Adjust a prerequisite for testing.
+
 0.163 2017-04-17T09:50:16Z
 	* Clarify that everything is under the Artistic License 2.0
 
