@@ -59,8 +59,8 @@
 
 
 \.travis\.yml
+\.?appveyor.yml
 \.releaserc
 \.lwpcookies
 Pod-.*
 .debug$
-\.appveyor\.yml
