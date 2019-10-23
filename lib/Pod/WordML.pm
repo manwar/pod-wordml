@@ -206,6 +206,8 @@ sub end_Document
       </w:r>
     </w:p>
 
+=end comment
+
 =cut
 
 sub _header_start
